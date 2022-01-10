@@ -1,3 +1,4 @@
 {
-  "port": 5000
+  "port": 5000,
+  "mongoUri": "mongodb+srv://admin:admin@schooljournalcluster.ikf61.mongodb.net/app?retryWrites=true&w=majority"
 }
