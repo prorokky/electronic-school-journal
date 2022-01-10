@@ -4,7 +4,8 @@
   "description": "Electronic school journal on MERN stack",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "server": "nodemon app.js"
   },
   "keywords": [
     "mern",
@@ -21,6 +22,13 @@
     }
   },
   "devDependencies": {
-    "cz-customizable": "^6.3.0"
+    "concurrently": "7.0.0",
+    "cz-customizable": "6.3.0",
+    "nodemon": "2.0.15"
+  },
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "4.17.2",
+    "mongoose": "6.1.6"
   }
 }
