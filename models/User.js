@@ -19,7 +19,7 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    class: {
+    class_study: {
         type: String // класс обучения, необходимо для учеников, их родителей, классного руководителя
     },
     subject: {
