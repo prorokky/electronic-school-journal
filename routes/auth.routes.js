@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
-const router = Router
+const router = Router()
 
 const rolesArray = ['Классный руководитель', 'Ученик', 'Учитель', 'Родитель', 'Администратор']
 const subjectsArray = [

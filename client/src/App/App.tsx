@@ -1,5 +1,16 @@
+import React from 'react'
+
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { useRoutes } from '../routes'
+
 function App() {
-	return <div></div>
+	const routes = useRoutes(false)
+	return (
+		<Router>
+			<div>{routes}</div>
+		</Router>
+	)
 }
 
 export default App
