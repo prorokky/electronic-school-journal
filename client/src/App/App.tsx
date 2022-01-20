@@ -8,7 +8,7 @@ function App() {
 	const routes = useRoutes(false)
 	return (
 		<Router>
-			<div>{routes}</div>
+			<>{routes}</>
 		</Router>
 	)
 }
