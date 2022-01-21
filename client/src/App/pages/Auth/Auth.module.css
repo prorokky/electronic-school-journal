@@ -1,85 +1,90 @@
+.authContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #9053c7;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+.formContainer {
+    width: 960px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 177px 130px 33px 95px;
+}
+
+.authIcon {
+    width: 316px;
+    margin-top: -100px;
+    margin-bottom: 100px;
+}
+
 .authForm {
-    background: #F1F2F4;
-    border-bottom: 2px solid #C5C5C8;
-    border-radius: 5px;
+    width: 290px;
+    margin-top: -70px;
+}
+
+.formHead {
+    font-size: 24px;
+    color: #333333;
+    line-height: 1.2;
     text-align: center;
-    color: #36383C;
-    text-shadow: 0 1px 0 #FFF;
-    max-width: 300px;
-    margin: 50% auto;
-    padding: 15px 40px 20px 40px;
-    box-shadow: 0 0 3px #000;
-}
-
-.authForm:before{
-    content:"";
+    width: 100%;
     display: block;
-    width: 70px;
-    height: 4px;
-    background: #4E535B;
-    border-radius: 5px;
-    border-bottom: 1px solid #FFFFFF;
-    border-top: 2px solid #CBCBCD;
-    margin: 0 auto;
+    padding-bottom: 54px;
 }
 
-h1{
-    font-size: 1.6em;
-    margin-top: 30px;
+.validateInput {
+    position: relative;
+    width: 100%;
+    z-index: 1;
     margin-bottom: 10px;
 }
 
-.input {
-    text-align: right;
-    padding-left: 5px;
-    background: #E5E7E9;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: inset 0 0 3px #65686E;
-    border-bottom: 1px solid #FFF;
-}
-
-input{
-    width: 260px;
-    background: transparent;
-    border: 0;
-    line-height: 3.6em;
-    box-sizing: border-box;
-    color: #71747A;
-    font-family:'Open Sans', Arial, sans-serif;
-    text-shadow: 0 1px 0 #FFF;
-}
-
-input:focus{
-    outline: none;
-}
-
-.inputBLock{
-    border-bottom: 1px solid #BDBFC2;
-    border-top: 1px solid #FFFFFF;
-}
-
-button{
-    margin-top: 20px;
+input {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666666;
     display: block;
     width: 100%;
-    line-height: 2em;
-    background: rgba(114,212,202,1);
-    border-radius: 5px;
-    border:0;
-    cursor: pointer;
-    border-top: 1px solid #B2ECE6;
-    box-shadow: 0 0 0 1px #46A294, 0 2px 2px #808389;
-    color: #FFFFFF;
-    font-size: 1.5em;
-    text-shadow: 0 1px 2px #21756A;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px 0 68px;
+    outline: none;
+    border: none;
 }
 
-button:hover{
-    background: linear-gradient(to bottom, rgba(107,198,186,1) 0%,rgba(57,175,154,1) 100%);
+.signIn {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
 }
 
-button:active{
-    box-shadow: inset 0 0 5px #000;
-    background: linear-gradient(to bottom, rgba(57,175,154,1) 0%,rgba(107,198,186,1) 100%);
+button {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background: #57b846;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    transition: all 0.4s;
+    border: none;
 }
+
