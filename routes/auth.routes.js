@@ -1,5 +1,7 @@
 const {Router} = require('express')
 const bcrypt = require('bcryptjs')
+const config = require('config')
+const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
@@ -66,12 +68,11 @@ router.post('/add_user',
             const candidate = await User.findOne({email})
 
             if (candidate) {
-                return response.status(400).json({message: 'User already exist'})
+                return response.status(400).json({message: 'Пользователь уже создан'})
             }
 
             const hashedPassword = await bcrypt(password, 12)
             const user = new User({
-                id: new mongoose.Types.ObjectId(),
                 email,
                 password: hashedPassword,
                 role,
@@ -87,13 +88,51 @@ router.post('/add_user',
 
             response.status(201).json({message: 'User created'})
         } catch (e) {
-            response.status(500).json({message: 'Something go wrong, try again'})
+            response.status(500).json({message: 'Что-то пошло не так'})
         }
     })
 
 // /api/auth/login - авторизация пользователя
-router.post('/login', async (request, response) => {
+router.post('/login',
+    [
+        check('email', 'Введите корректный логин').isEmpty(),
+        check('password', 'Введите пароль').exists()
+    ],
+    async (request, response) => {
+        try {
+            const errors = validationResult(req)
 
+            if (!errors.isEmpty()) {
+                return response.status(400).json({
+                    errors: errors.array(),
+                    message: 'Некорректные данные при входе в систему'
+                })
+            }
+
+            const { email, password } = req.body
+
+            const user = await User.findOne({ email })
+
+            if (!user) {
+                return response.status(400).json({ message: 'Пользователь не найден' })
+            }
+
+            const isMatch = await bcrypt.compare(password, User.password)
+
+            if (!isMatch) {
+                return response.status(400).json({ message: 'Введен неверный логин или пароль' })
+            }
+
+            const token = jwt.sign(
+                { userId: user.id },
+                config.get('jwtSecret'),
+                { expiresIn: '1h'}
+            )
+
+            response.json({ token, userId: user.id })
+        } catch (e) {
+            response.status(500).json({message: 'Something go wrong, try again'})
+        }
 })
 
 module.exports = router
