@@ -62,12 +62,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|svg|jpg)$/,
-				type: 'assets',
-				parser: {
-					dataUrlCondition: {
-						maxSize: 10 * 1024,
-					},
-				},
+				type: 'asset/resource',
 			},
 		],
 	},
@@ -75,6 +70,8 @@ module.exports = {
 		extensions: ['.jsx', '.js', '.tsx', '.ts'],
 		alias: {
 			'@components': path.resolve(srcPath, 'components'),
+			'@styles': path.resolve(srcPath, 'styles'),
+			'@assets': path.resolve(srcPath, 'assets'),
 		},
 	},
 	devServer: {

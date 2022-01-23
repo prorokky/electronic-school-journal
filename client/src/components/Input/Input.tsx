@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import styles from './Input.module.css'
+import styles from './Input.module.scss'
 
 type InputProps = {
 	value: string
@@ -16,7 +16,7 @@ const Input: React.FC<InputProps> = ({ value, placeholder, onChange }) => {
 		[onChange]
 	)
 
-	return <input value={value} placeholder={placeholder} onChange={onChangeInput} />
+	return <input className={styles.input} value={value} placeholder={placeholder} onChange={onChangeInput} />
 }
 
 export default Input
