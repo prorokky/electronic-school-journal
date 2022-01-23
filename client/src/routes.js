@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 
 import AddUser from './App/pages/AddUser'
 import Auth from './App/pages/Auth'
@@ -8,17 +8,25 @@ import Auth from './App/pages/Auth'
 export const useRoutes = (isAuthenticated) => {
 	if (isAuthenticated) {
 		return (
-			<Routes>
-				<Route path="/add_user" exact element={<AddUser />} />
-				<Route path="*" element={<Auth to="/" />} />
-			</Routes>
+			<Switch>
+				<Route path="/add_user" exact>
+					<AddUser />
+				</Route>
+				<Redirect to="/add_user">
+					<AddUser />
+				</Redirect>
+			</Switch>
 		)
 	}
 
 	return (
-		<Routes>
-			<Route path="/" exact element={<Auth />} />
-			<Route path="*" element={<Auth to="/" />} />
-		</Routes>
+		<Switch>
+			<Route path="/auth" exact>
+				<Auth />
+			</Route>
+			<Redirect to="/auth">
+				<Auth />
+			</Redirect>
+		</Switch>
 	)
 }

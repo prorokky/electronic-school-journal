@@ -1,0 +1,61 @@
+@import "@styles/variables.scss";
+
+.authContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: $project-background;
+    background: $project-background-linear;
+}
+
+.formContainer {
+    width: 960px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 177px 130px 33px 95px;
+}
+
+.authIcon {
+    width: 316px;
+    margin-top: -100px;
+    margin-bottom: 100px;
+}
+
+.authForm {
+    width: 290px;
+    margin-top: -70px;
+}
+
+.formHead {
+    font-size: 24px;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 54px;
+}
+
+.validateInput {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 10px;
+}
+
+.signIn {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+}
+
