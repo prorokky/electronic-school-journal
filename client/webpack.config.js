@@ -72,6 +72,7 @@ module.exports = {
 			'@components': path.resolve(srcPath, 'components'),
 			'@styles': path.resolve(srcPath, 'styles'),
 			'@assets': path.resolve(srcPath, 'assets'),
+			'@hooks': path.resolve(srcPath, 'hooks'),
 		},
 	},
 	devServer: {

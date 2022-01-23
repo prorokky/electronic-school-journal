@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {JSXElementConstructor} from 'react'
 
-import {Redirect, Route, Switch} from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddUser from './App/pages/AddUser'
 import Auth from './App/pages/Auth'
 
-export const useRoutes = (isAuthenticated) => {
+export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 	if (isAuthenticated) {
 		return (
 			<Switch>

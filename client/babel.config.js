@@ -1,7 +1,7 @@
 module.exports = (api) => {
 	api.cache.using(() => process.env.NODE_ENV)
 
-	const presets = ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript', 'mobx']
+	const presets = ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
 
 	const plugins = [
 		'@babel/plugin-proposal-optional-chaining',

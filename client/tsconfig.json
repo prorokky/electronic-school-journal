@@ -5,6 +5,7 @@
       "@components/*": ["src/components/*"],
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
+      "@hooks/*": ["src/hooks/*"],
     },
     "target": "es5",
     "lib": [
