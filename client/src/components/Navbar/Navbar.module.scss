@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 15px;
+  margin: 0 auto;
+  background: rgba(96, 191, 226, 0.87);
+  border-radius: 0 0 5px 5px;
+}
+
+.navElement {
+  width: 20%;
+  text-align: center;
+  overflow-wrap: break-word;
+
+  &:not(:last-child) {
+    border-right: 1px solid #e6e6e6;
+  }
+
+  .elementText {
+    vertical-align: middle;
+  }
+}
