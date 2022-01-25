@@ -73,6 +73,7 @@ module.exports = {
 			'@styles': path.resolve(srcPath, 'styles'),
 			'@assets': path.resolve(srcPath, 'assets'),
 			'@hooks': path.resolve(srcPath, 'hooks'),
+			'@store': path.resolve(srcPath, 'store'),
 		},
 	},
 	devServer: {

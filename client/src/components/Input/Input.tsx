@@ -6,9 +6,10 @@ type InputProps = {
 	value: string
 	placeholder?: string
 	onChange: (value: string) => void
+	isPassword?: boolean
 }
 
-const Input: React.FC<InputProps> = ({ value, placeholder, onChange }) => {
+const Input: React.FC<InputProps> = ({ value, placeholder, onChange, isPassword }) => {
 	const onChangeInput = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
 			onChange(event.target.value)
@@ -16,7 +17,17 @@ const Input: React.FC<InputProps> = ({ value, placeholder, onChange }) => {
 		[onChange]
 	)
 
-	return <input className={styles.input} value={value} placeholder={placeholder} onChange={onChangeInput} />
+	const inputType: string = isPassword ? 'password' : 'text'
+
+	return (
+		<input
+			className={styles.input}
+			value={value}
+			placeholder={placeholder}
+			type={inputType}
+			onChange={onChangeInput}
+		/>
+	)
 }
 
 export default Input

@@ -6,7 +6,7 @@ import { useRoutes } from '../routes'
 import styles from './App.module.scss'
 
 function App() {
-	const routes = useRoutes(true)
+	const routes = useRoutes(false)
 	return (
 		<Router>
 			<div className={styles.container}>{routes}</div>

@@ -6,6 +6,7 @@
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["src/store/*"],
     },
     "target": "es5",
     "lib": [
