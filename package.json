@@ -9,11 +9,6 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
-    }
-  },
   "keywords": [
     "mern",
     "react"
@@ -32,8 +27,6 @@
     "@commitlint/cli": "^16.1.0",
     "concurrently": "7.0.0",
     "cz-customizable": "6.3.0",
-    "eslint": "^5.16.0",
-    "husky": "^7.0.4",
     "nodemon": "2.0.15"
   },
   "dependencies": {

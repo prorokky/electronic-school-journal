@@ -1,4 +1,4 @@
-import {ON_CHANGE_LOGIN, ON_CHANGE_PASSWORD} from './actions'
+import { ON_CHANGE_LOGIN, ON_CHANGE_PASSWORD } from './actions'
 import { AuthReducerState } from './types'
 
 const initialState: AuthReducerState = {
