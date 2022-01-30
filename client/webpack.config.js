@@ -37,7 +37,7 @@ module.exports = {
 	},
 	plugins: [
 		new HTMLWebpackPlugin({
-			template: path.join(srcPath, 'index.html'),
+			template: path.resolve(__dirname, './public/index.html'),
 		}),
 		!isProd && new ReactRefreshWebpackPlugin(),
 		new MiniCssExtractPlugin({
