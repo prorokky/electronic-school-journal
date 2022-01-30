@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .container {
   width: 100%;
   display: flex;
@@ -6,7 +8,7 @@
   justify-content: space-around;
   padding: 15px;
   margin: 0 auto;
-  background: rgba(108, 169, 191, 0.87);
+  background: $navbar-background;
   border-radius: 0 0 5px 5px;
 }
 

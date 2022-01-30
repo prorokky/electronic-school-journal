@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .addUserContainer {
   width: 80%;
   height: 100vh;
@@ -10,7 +12,7 @@
 
 .formContainer {
   width: 100%;
-  background: rgba(69, 10, 84, 0.39);
+  background: $add-user-form-background;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   display: flex;
