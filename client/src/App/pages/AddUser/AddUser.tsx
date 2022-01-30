@@ -3,6 +3,7 @@ import React from 'react'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import Navbar from '@components/Navbar'
+import { useHttp } from '@hooks/http.hook'
 import {
 	onChangeCab,
 	onChangeClassStudy,
@@ -20,6 +21,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './AddUser.module.scss'
 
 const AddUser: React.FC = () => {
+	// @ts-ignore
+	const { loading, error, request } = useHttp()
 	const dispatch = useDispatch()
 	const login = useSelector((state: RootState) => state.addUser.login)
 	const password = useSelector((state: RootState) => state.addUser.password)
@@ -30,6 +33,23 @@ const AddUser: React.FC = () => {
 	const last_name = useSelector((state: RootState) => state.addUser.last_name)
 	const patronymic = useSelector((state: RootState) => state.addUser.patronymic)
 	const cab = useSelector((state: RootState) => state.addUser.cab)
+
+	const addUserHandler = async () => {
+		const payload = {
+			login,
+			password,
+			role,
+			class_study,
+			subject,
+			name,
+			last_name,
+			patronymic,
+			cab,
+		}
+		try {
+			const data = await request('/api/add_user', 'POST', { ...payload })
+		} catch (e) {}
+	}
 
 	return (
 		<div className={styles.addUserContainer}>
@@ -93,7 +113,9 @@ const AddUser: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.createUser}>
-						<Button onClick={() => alert('Вы прожали кнопку')}>войти</Button>
+						<Button onClick={addUserHandler} isDisabled={loading}>
+							войти
+						</Button>
 					</div>
 				</form>
 			</div>
