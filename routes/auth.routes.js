@@ -10,7 +10,7 @@ const router = Router()
 // /api/auth/login - авторизация пользователя
 router.post('/login',
     [
-        check('email', 'Введите корректный логин').isEmpty(),
+        check('login', 'Введите корректный логин').isEmpty(),
         check('password', 'Введите пароль').exists()
     ],
     async (request, response) => {
@@ -24,9 +24,9 @@ router.post('/login',
                 })
             }
 
-            const { email, password } = req.body
+            const { login, password } = req.body
 
-            const user = await User.findOne({ email })
+            const user = await User.findOne({ login })
 
             if (!user) {
                 return response.status(400).json({ message: 'Пользователь не найден' })

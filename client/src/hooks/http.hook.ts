@@ -15,13 +15,13 @@ export const useHttp = (): Object => {
 			const data = await response.json()
 
 			if (!response.ok) {
-				// eslint-disable-next-line no-console
 				setErrors(data.errors)
 				throw new Error(data.message || 'Что-то пошло не так')
 			}
 
 			setLoading(false)
-
+			// eslint-disable-next-line no-console
+			console.log(data)
 			return data
 		} catch (e: any) {
 			setLoading(false)

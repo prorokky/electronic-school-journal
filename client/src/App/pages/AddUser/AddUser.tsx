@@ -23,7 +23,7 @@ import styles from './AddUser.module.scss'
 
 const AddUser: React.FC = () => {
 	// @ts-ignore
-	const { loading, errors, request, clearError } = useHttp()
+	const { loading, errors, request } = useHttp()
 	const dispatch = useDispatch()
 	const login = useSelector((state: RootState) => state.addUser.login)
 	const password = useSelector((state: RootState) => state.addUser.password)
@@ -34,19 +34,21 @@ const AddUser: React.FC = () => {
 	const last_name = useSelector((state: RootState) => state.addUser.last_name)
 	const patronymic = useSelector((state: RootState) => state.addUser.patronymic)
 	const cab = useSelector((state: RootState) => state.addUser.cab)
-	const [showErrors, setShowErrors] = useState<string[]>([])
+	const [showMessages, setShowMessages] = useState<Object[]>([])
 
 	useEffect(() => {
+		cleanError('', true)
 		errors?.map((error: { msg: string }, index: number) => {
-			setShowErrors((prevState: any) => [...prevState, error.msg])
+			setShowMessages((prevState) => [...prevState, { msg: error.msg, isWarning: true }])
 		})
 	}, [errors])
 
-	const cleanError = (message: string, allErrors: boolean) => {
+	const cleanError = (msg: string, allErrors: boolean) => {
 		if (allErrors) {
-			setShowErrors([])
+			setShowMessages([])
 		} else {
-			setShowErrors(showErrors.filter((msg) => msg !== message))
+			// @ts-ignore
+			setShowMessages(showMessages.filter((message) => message.msg !== msg))
 		}
 	}
 
@@ -66,19 +68,21 @@ const AddUser: React.FC = () => {
 		}
 		try {
 			const data = await request('/api/add_user', 'POST', { ...payload })
+			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
 		} catch (e) {}
 	}
 
 	return (
 		<div className={styles.addUserContainer}>
 			<Navbar />
-			{showErrors.map((msg: string, index: React.Key | null | undefined) => {
-				return (
-					<div className={styles.alertsContainer}>
-						<Alert cleanError={cleanError} text={msg} key={index} />
-					</div>
-				)
-			})}
+			<div className={styles.alertsContainer}>
+				{showMessages.map((message, index) => {
+					return (
+						// @ts-ignore
+						<Alert cleanError={cleanError} text={message.msg} key={index} isWarning={message.isWarning} />
+					)
+				})}
+			</div>
 			<div className={styles.formContainer}>
 				<form onSubmit={(event) => addUserHandler(event)}>
 					<h1 className={styles.formHead}>Добавление пользователя</h1>
@@ -93,6 +97,7 @@ const AddUser: React.FC = () => {
 						<Input
 							value={password}
 							placeholder={'Пароль'}
+							isPassword={true}
 							onChange={(event) => dispatch(onChangePassword(event))}
 						/>
 					</div>
@@ -114,14 +119,14 @@ const AddUser: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.validateInput}>
-						<Input value={name} placeholder={'Имя'} onChange={(event) => dispatch(onChangeName(event))} />
-					</div>
-					<div className={styles.validateInput}>
 						<Input
 							value={last_name}
 							placeholder={'Фамилия'}
 							onChange={(event) => dispatch(onChangeLastName(event))}
 						/>
+					</div>
+					<div className={styles.validateInput}>
+						<Input value={name} placeholder={'Имя'} onChange={(event) => dispatch(onChangeName(event))} />
 					</div>
 					<div className={styles.validateInput}>
 						<Input

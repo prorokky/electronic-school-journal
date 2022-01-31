@@ -7,19 +7,6 @@ const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const router = Router()
 
-const rolesArray = ['Классный руководитель', 'Ученик', 'Учитель', 'Родитель', 'Администратор']
-const subjectsArray = [
-    'Русский язык',
-    'Литература',
-    'Математика',
-    'География',
-    'Биология',
-    'Физкультура',
-    'ИЗО',
-    'Черчение',
-]
-
-// /api/add_user - создание нового пользователя
 router.post('/add_user',
     [
         check('login', 'Неправильно указан логин')
@@ -28,13 +15,13 @@ router.post('/add_user',
         check('password', 'Минимальная длина пароля 6 символов')
             .isLength({min: 6}),
         check('role', 'Неправильно указана роль')
-            .if((value) => value.indexOf(rolesArray) === -1),
-        check('subject', 'Неправильно указан предмет')
-            .if((value) => value.map((item) => {
-                if (item.indexOf(subjectsArray) === -1) {
-                    return false
-                } else return true
-            })),
+            .isIn([
+                'Классный руководитель',
+                'Ученик',
+                'Учитель',
+                'Родитель',
+                'Администратор'
+            ]),
         check('name', 'Неправильно указано имя')
             .isString()
             .notEmpty(),
@@ -54,7 +41,7 @@ router.post('/add_user',
             }
 
             const {
-                email,
+                login,
                 password,
                 role,
                 class_study,
@@ -65,15 +52,15 @@ router.post('/add_user',
                 cab
             } = request.body
 
-            const candidate = await User.findOne({email})
+            const candidate = await User.findOne({ login })
 
             if (candidate) {
                 return response.status(400).json({message: 'Пользователь уже создан'})
             }
 
-            const hashedPassword = await bcrypt(password, 12)
+            const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({
-                email,
+                login,
                 password: hashedPassword,
                 role,
                 class_study,
@@ -84,12 +71,16 @@ router.post('/add_user',
                 cab
             })
 
+            console.log(user)
+
             await user.save()
 
-            response.status(201).json({message: 'User created'})
+            response.status(201).json({message: 'Пользователь создан'})
         } catch (e) {
-            response.status(500).json({message: 'Что-то пошло не так'})
+            console.log(e)
+            response.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
         }
-    })
+    }
+)
 
 module.exports = router
