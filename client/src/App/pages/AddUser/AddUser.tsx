@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
+import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import Navbar from '@components/Navbar'
@@ -22,7 +23,7 @@ import styles from './AddUser.module.scss'
 
 const AddUser: React.FC = () => {
 	// @ts-ignore
-	const { loading, error, request } = useHttp()
+	const { loading, errors, request, clearError } = useHttp()
 	const dispatch = useDispatch()
 	const login = useSelector((state: RootState) => state.addUser.login)
 	const password = useSelector((state: RootState) => state.addUser.password)
@@ -33,8 +34,25 @@ const AddUser: React.FC = () => {
 	const last_name = useSelector((state: RootState) => state.addUser.last_name)
 	const patronymic = useSelector((state: RootState) => state.addUser.patronymic)
 	const cab = useSelector((state: RootState) => state.addUser.cab)
+	const [showErrors, setShowErrors] = useState<string[]>([])
 
-	const addUserHandler = async () => {
+	useEffect(() => {
+		errors?.map((error: { msg: string }, index: number) => {
+			setShowErrors((prevState: any) => [...prevState, error.msg])
+		})
+	}, [errors])
+
+	const cleanError = (message: string, allErrors: boolean) => {
+		if (allErrors) {
+			setShowErrors([])
+		} else {
+			setShowErrors(showErrors.filter((msg) => msg !== message))
+		}
+	}
+
+	const addUserHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+		cleanError('', true)
 		const payload = {
 			login,
 			password,
@@ -54,8 +72,15 @@ const AddUser: React.FC = () => {
 	return (
 		<div className={styles.addUserContainer}>
 			<Navbar />
+			{showErrors.map((msg: string, index: React.Key | null | undefined) => {
+				return (
+					<div className={styles.alertsContainer}>
+						<Alert cleanError={cleanError} text={msg} key={index} />
+					</div>
+				)
+			})}
 			<div className={styles.formContainer}>
-				<form>
+				<form onSubmit={(event) => addUserHandler(event)}>
 					<h1 className={styles.formHead}>Добавление пользователя</h1>
 					<div className={styles.validateInput}>
 						<Input
@@ -113,9 +138,7 @@ const AddUser: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.createUser}>
-						<Button onClick={addUserHandler} isDisabled={loading}>
-							войти
-						</Button>
+						<Button isDisabled={loading}>войти</Button>
 					</div>
 				</form>
 			</div>

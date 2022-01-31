@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 
 export const useHttp = (): Object => {
 	const [loading, setLoading] = useState<boolean>(false)
-	const [error, setError] = useState<any>(null)
+	const [errors, setErrors] = useState<any>(null)
 
 	const request = useCallback(async (url: string, method = 'GET', body = null, headers = {}): Promise<any> => {
 		setLoading(true)
@@ -15,6 +15,8 @@ export const useHttp = (): Object => {
 			const data = await response.json()
 
 			if (!response.ok) {
+				// eslint-disable-next-line no-console
+				setErrors(data.errors)
 				throw new Error(data.message || 'Что-то пошло не так')
 			}
 
@@ -23,12 +25,11 @@ export const useHttp = (): Object => {
 			return data
 		} catch (e: any) {
 			setLoading(false)
-			setError(e.message)
 			throw e
 		}
 	}, [])
 
-	const cleanError = (): any => setError(null)
+	const clearError = useCallback((): any => setErrors(null), [])
 
-	return { loading, request, error, cleanError }
+	return { loading, request, errors, clearError }
 }

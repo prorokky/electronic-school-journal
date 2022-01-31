@@ -16,6 +16,7 @@
   width: 20%;
   text-align: center;
   overflow-wrap: break-word;
+  cursor: pointer;
 
   &:not(:last-child) {
     border-right: 1px solid #e6e6e6;

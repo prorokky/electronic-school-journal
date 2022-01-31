@@ -28,7 +28,7 @@ router.post('/add_user',
         check('password', 'Минимальная длина пароля 6 символов')
             .isLength({min: 6}),
         check('role', 'Неправильно указана роль')
-            .if((value) => value.indexOf(rolesArray) !== -1),
+            .if((value) => value.indexOf(rolesArray) === -1),
         check('subject', 'Неправильно указан предмет')
             .if((value) => value.map((item) => {
                 if (item.indexOf(subjectsArray) === -1) {
@@ -44,7 +44,6 @@ router.post('/add_user',
     ],
     async (request, response) => {
         try {
-            console.log(request.body)
             const errors = validationResult(request)
 
             if (!errors.isEmpty()) {
