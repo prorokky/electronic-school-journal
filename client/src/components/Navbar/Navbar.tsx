@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { AuthContext } from '@context/AuthContext'
 
 import styles from './Navbar.module.scss'
 
 const Navbar: React.FC = () => {
+	const auth = useContext(AuthContext)
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.navElement}>
@@ -19,7 +23,10 @@ const Navbar: React.FC = () => {
 				<span className={styles.elementText}>Контакты</span>
 			</div>
 			<div className={styles.navElement}>
-				<span className={styles.elementText}>Выход</span>
+				{/* @ts-ignore */}
+				<span className={styles.elementText} onClick={auth.logout}>
+					Выход
+				</span>
 			</div>
 		</div>
 	)

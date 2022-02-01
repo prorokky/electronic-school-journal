@@ -12,6 +12,14 @@
     background: $project-background-linear;
 }
 
+.alertsContainer {
+    position: absolute;
+    width: 80%;
+    left: 20%;
+    top: 21%;
+    z-index: 10;
+}
+
 .formContainer {
     width: 960px;
     background: #fff;

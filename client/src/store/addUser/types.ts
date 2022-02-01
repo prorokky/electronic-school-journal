@@ -1,11 +1,11 @@
 export type AddUserReducerState = {
-	login: string
-	password: string
+	userLogin: string
+	userPassword: string
 	role: string
-	class_study: string
+	classStudy: string
 	subject: string
 	name: string
-	last_name: string
+	lastName: string
 	patronymic: string
 	cab: string
 }

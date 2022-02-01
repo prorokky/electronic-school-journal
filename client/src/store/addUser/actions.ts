@@ -1,5 +1,5 @@
-export const ON_CHANGE_LOGIN = 'on_change_login'
-export const ON_CHANGE_PASSWORD = 'on_change_password'
+export const ON_CHANGE_USER_LOGIN = 'on_change_login'
+export const ON_CHANGE_USER_PASSWORD = 'on_change_password'
 export const ON_CHANGE_ROLE = 'on_change_role'
 export const ON_CHANGE_CLASS_STUDY = 'on_change_class_study'
 export const ON_CHANGE_SUBJECT = 'on_change_subject'
@@ -7,17 +7,24 @@ export const ON_CHANGE_NAME = 'on_change_name'
 export const ON_CHANGE_LAST_NAME = 'on_change_last_name'
 export const ON_CHANGE_PATRONYMIC = 'on_change_patronymic'
 export const ON_CHANGE_CAB = 'on_change_cab'
+export const CLEAN_FORM = 'clean_form'
 
-export function onChangeLogin(login: string) {
+export function onChangeUserLogin(login: string) {
 	return {
-		type: ON_CHANGE_LOGIN,
+		type: ON_CHANGE_USER_LOGIN,
 		payload: login,
 	}
 }
 
-export function onChangePassword(password: string) {
+export function cleanForm() {
 	return {
-		type: ON_CHANGE_PASSWORD,
+		type: CLEAN_FORM,
+	}
+}
+
+export function onChangeUserPassword(password: string) {
+	return {
+		type: ON_CHANGE_USER_PASSWORD,
 		payload: password,
 	}
 }

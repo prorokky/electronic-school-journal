@@ -74,6 +74,7 @@ module.exports = {
 			'@assets': path.resolve(srcPath, 'assets'),
 			'@hooks': path.resolve(srcPath, 'hooks'),
 			'@store': path.resolve(srcPath, 'store'),
+			'@context': path.resolve(srcPath, 'context'),
 		},
 	},
 	devServer: {

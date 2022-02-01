@@ -9,12 +9,13 @@ import {
 	onChangeCab,
 	onChangeClassStudy,
 	onChangeLastName,
-	onChangeLogin,
+	onChangeUserLogin,
 	onChangeName,
-	onChangePassword,
+	onChangeUserPassword,
 	onChangePatronymic,
 	onChangeRole,
 	onChangeSubject,
+	cleanForm,
 } from '@store/addUser/actions'
 import { RootState } from '@store/rootReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,18 +26,19 @@ const AddUser: React.FC = () => {
 	// @ts-ignore
 	const { loading, errors, request } = useHttp()
 	const dispatch = useDispatch()
-	const login = useSelector((state: RootState) => state.addUser.login)
-	const password = useSelector((state: RootState) => state.addUser.password)
+	const login = useSelector((state: RootState) => state.addUser.userLogin)
+	const password = useSelector((state: RootState) => state.addUser.userPassword)
 	const role = useSelector((state: RootState) => state.addUser.role)
-	const class_study = useSelector((state: RootState) => state.addUser.class_study)
+	const class_study = useSelector((state: RootState) => state.addUser.classStudy)
 	const subject = useSelector((state: RootState) => state.addUser.subject)
 	const name = useSelector((state: RootState) => state.addUser.name)
-	const last_name = useSelector((state: RootState) => state.addUser.last_name)
+	const last_name = useSelector((state: RootState) => state.addUser.lastName)
 	const patronymic = useSelector((state: RootState) => state.addUser.patronymic)
 	const cab = useSelector((state: RootState) => state.addUser.cab)
 	const [showMessages, setShowMessages] = useState<Object[]>([])
 
 	useEffect(() => {
+		dispatch(cleanForm())
 		cleanError('', true)
 		errors?.map((error: { msg: string }, index: number) => {
 			setShowMessages((prevState) => [...prevState, { msg: error.msg, isWarning: true }])
@@ -70,6 +72,7 @@ const AddUser: React.FC = () => {
 			const data = await request('/api/add_user', 'POST', { ...payload })
 			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
 		} catch (e) {}
+		dispatch(cleanForm())
 	}
 
 	return (
@@ -90,7 +93,7 @@ const AddUser: React.FC = () => {
 						<Input
 							value={login}
 							placeholder={'Логин'}
-							onChange={(event) => dispatch(onChangeLogin(event))}
+							onChange={(event) => dispatch(onChangeUserLogin(event))}
 						/>
 					</div>
 					<div className={styles.validateInput}>
@@ -98,7 +101,7 @@ const AddUser: React.FC = () => {
 							value={password}
 							placeholder={'Пароль'}
 							isPassword={true}
-							onChange={(event) => dispatch(onChangePassword(event))}
+							onChange={(event) => dispatch(onChangeUserPassword(event))}
 						/>
 					</div>
 					<div className={styles.validateInput}>

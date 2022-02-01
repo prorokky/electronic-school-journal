@@ -7,6 +7,7 @@
       "@assets/*": ["src/assets/*"],
       "@hooks/*": ["src/hooks/*"],
       "@store/*": ["src/store/*"],
+      "@context/*": ["src/context/*"],
     },
     "target": "es5",
     "lib": [

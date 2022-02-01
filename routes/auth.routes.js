@@ -10,12 +10,11 @@ const router = Router()
 // /api/auth/login - авторизация пользователя
 router.post('/login',
     [
-        check('login', 'Введите корректный логин').isEmpty(),
         check('password', 'Введите пароль').exists()
     ],
     async (request, response) => {
         try {
-            const errors = validationResult(req)
+            const errors = validationResult(request)
 
             if (!errors.isEmpty()) {
                 return response.status(400).json({
@@ -24,7 +23,7 @@ router.post('/login',
                 })
             }
 
-            const { login, password } = req.body
+            const { login, password } = request.body
 
             const user = await User.findOne({ login })
 
@@ -32,7 +31,7 @@ router.post('/login',
                 return response.status(400).json({ message: 'Пользователь не найден' })
             }
 
-            const isMatch = await bcrypt.compare(password, User.password)
+            const isMatch = await bcrypt.compare(password, user.password)
 
             if (!isMatch) {
                 return response.status(400).json({ message: 'Введен неверный логин или пароль' })
@@ -46,6 +45,7 @@ router.post('/login',
 
             response.json({ token, userId: user.id })
         } catch (e) {
+            console.log(e)
             response.status(500).json({message: 'Что-то пошло не так попробуйте снова...'})
         }
 })

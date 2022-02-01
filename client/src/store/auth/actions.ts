@@ -1,5 +1,6 @@
 export const ON_CHANGE_LOGIN = 'on_change_login'
 export const ON_CHANGE_PASSWORD = 'on_change_password'
+export const CLEAN_FORM = 'clean_form'
 
 export function onChangeLogin(login: string) {
 	return {
@@ -14,3 +15,10 @@ export function onChangePassword(password: string) {
 		payload: password,
 	}
 }
+
+export function cleanForm() {
+	return {
+		type: CLEAN_FORM,
+	}
+}
+
