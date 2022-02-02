@@ -6,6 +6,8 @@ import AddUser from './App/pages/AddUser'
 import Auth from './App/pages/Auth'
 import Profile from './App/pages/Profile'
 
+// TODO: редирект в зависимости от роли
+
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 	if (isAuthenticated) {
 		return (

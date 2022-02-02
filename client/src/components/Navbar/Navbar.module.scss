@@ -13,14 +13,11 @@
 }
 
 .navElement {
-  width: 20%;
-  text-align: center;
+  width: auto;
   overflow-wrap: break-word;
   cursor: pointer;
-
-  &:not(:last-child) {
-    border-right: 1px solid #e6e6e6;
-  }
+  display: flex;
+  justify-content: center;
 
   .elementText {
     vertical-align: middle;
