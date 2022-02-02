@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Navbar from '@components/Navbar'
 import { AuthContext } from '@context/AuthContext'
 import { useAuth } from '@hooks/auth.hook'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -23,6 +24,7 @@ function App() {
 			}}
 		>
 			<Router>
+				{isAuthenticated && <Navbar />}
 				<div className={styles.container}>{routes}</div>
 			</Router>
 		</AuthContext.Provider>

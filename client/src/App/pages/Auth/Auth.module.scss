@@ -7,15 +7,13 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    background: $project-background;
-    background: $project-background-linear;
+    padding: 15px;                 
 }
 
 .alertsContainer {
     position: absolute;
-    width: 80%;
-    left: 20%;
+    width: 60%;
+    left: 25%;
     top: 21%;
     z-index: 10;
 }

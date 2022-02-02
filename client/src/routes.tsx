@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddUser from './App/pages/AddUser'
 import Auth from './App/pages/Auth'
+import Profile from './App/pages/Profile'
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 	if (isAuthenticated) {
@@ -11,6 +12,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 			<Switch>
 				<Route path="/add_user" exact>
 					<AddUser />
+				</Route>
+				<Route path="/profile/:id" exact>
+					<Profile />
 				</Route>
 				<Redirect to="/add_user">
 					<AddUser />

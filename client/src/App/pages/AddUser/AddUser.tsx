@@ -77,7 +77,6 @@ const AddUser: React.FC = () => {
 
 	return (
 		<div className={styles.addUserContainer}>
-			<Navbar />
 			<div className={styles.alertsContainer}>
 				{showMessages.map((message, index) => {
 					return (
@@ -146,7 +145,7 @@ const AddUser: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.createUser}>
-						<Button isDisabled={loading}>войти</Button>
+						<Button isDisabled={loading}>создать</Button>
 					</div>
 				</form>
 			</div>

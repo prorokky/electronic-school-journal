@@ -1,7 +1,7 @@
 @import '@styles/variables.scss';
 
 .container {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -24,5 +24,7 @@
 
   .elementText {
     vertical-align: middle;
+    text-decoration: none;
+    color: black
   }
 }
