@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import { AuthContext } from '@context/AuthContext'
 import { useHttp } from '@hooks/http.hook'
@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
 			const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
 				Authorization: `Bearer ${auth.token}`,
 			})
-			setRole(data.role)
+			setRole(data.role.role)
 		} catch (e) {}
 	}, [auth])
 

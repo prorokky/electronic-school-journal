@@ -11,11 +11,13 @@ const schema = new Schema({
         required: true
     },
     role: {
-        type: String,
+        type: Types.ObjectId,
+        ref: 'Role',
         required: true
     },
     class_study: {
-        type: String // класс обучения, необходимо для учеников, их родителей, классного руководителя
+        type: Types.ObjectId,
+        ref: 'Class'// класс обучения, необходимо для учеников, их родителей, классного руководителя
     },
     subject: {
         type: String // предмет обучения, необходимо для учителя

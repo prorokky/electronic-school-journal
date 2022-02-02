@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
+const Role = require('../models/Role')
+const Class = require('../models/Class')
 const router = Router()
 
 router.post('/add_user',
@@ -53,17 +55,30 @@ router.post('/add_user',
             } = request.body
 
             const candidate = await User.findOne({ login })
+            const roleCandidate = await Role.findOne({ role })
+            const classCandidate = await Class.findOne({ class_study })
 
             if (candidate) {
-                return response.status(400).json({message: 'Пользователь уже создан'})
+                const data = [{msg: 'Пользователь уже создан'}]
+                return response.status(400).json(data)
+            }
+
+            if (!roleCandidate) {
+                const data = {errors: [{msg: 'Введите корректную роль'}]}
+                return response.status(400).json(data)
+            }
+
+            if (!classCandidate) {
+                const data = {errors: [{msg: 'Введите корректный класс'}]}
+                return response.status(400).json(data)
             }
 
             const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({
                 login,
                 password: hashedPassword,
-                role,
-                class_study,
+                role: roleCandidate,
+                class_study: classCandidate,
                 subject,
                 name,
                 last_name,
