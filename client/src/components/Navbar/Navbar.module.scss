@@ -1,0 +1,27 @@
+@import '@styles/variables.scss';
+
+.container {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 15px;
+  margin: 0 auto;
+  background: $navbar-background;
+  border-radius: 0 0 5px 5px;
+}
+
+.navElement {
+  width: auto;
+  overflow-wrap: break-word;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+  .elementText {
+    vertical-align: middle;
+    text-decoration: none;
+    color: black
+  }
+}

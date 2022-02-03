@@ -1,0 +1,43 @@
+@import '@styles/variables.scss';
+
+.alertContainerWarning {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: $alert-warning-background;
+  border: 1px solid $alert-warning-border;
+  border-radius: 15px;
+  color: $aler-warning-text-color;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.alertContentWarning {
+  padding: 10px;
+}
+
+.closeButtonWarning {
+  padding: 10px;
+}
+
+.alertContainerSuccess {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: $alert-success-background;
+  border: 1px solid $alert-success-border;
+  border-radius: 15px;
+  color: $alert-success-text-color;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.alertContentSuccess {
+  padding: 10px;
+}
+
+.closeButtonSuccess {
+  padding: 10px;
+}

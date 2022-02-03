@@ -37,7 +37,7 @@ module.exports = {
 	},
 	plugins: [
 		new HTMLWebpackPlugin({
-			template: path.join(srcPath, 'index.html'),
+			template: path.resolve(__dirname, './public/index.html'),
 		}),
 		!isProd && new ReactRefreshWebpackPlugin(),
 		new MiniCssExtractPlugin({
@@ -72,6 +72,9 @@ module.exports = {
 			'@components': path.resolve(srcPath, 'components'),
 			'@styles': path.resolve(srcPath, 'styles'),
 			'@assets': path.resolve(srcPath, 'assets'),
+			'@hooks': path.resolve(srcPath, 'hooks'),
+			'@store': path.resolve(srcPath, 'store'),
+			'@context': path.resolve(srcPath, 'context'),
 		},
 	},
 	devServer: {
@@ -79,5 +82,10 @@ module.exports = {
 		port: 3000,
 		hot: true,
 		historyApiFallback: true,
+		proxy: {
+			'/api': {
+				target: 'http://localhost:5000',
+			},
+		},
 	},
 }

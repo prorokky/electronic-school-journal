@@ -7,9 +7,13 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    background: $project-background;
-    background: $project-background-linear;
+    padding: 15px;                 
+}
+
+.alertsContainer {
+    position: absolute;
+    top: 21%;
+    z-index: 10;
 }
 
 .formContainer {

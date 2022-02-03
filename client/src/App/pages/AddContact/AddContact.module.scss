@@ -1,0 +1,56 @@
+@import '@styles/variables.scss';
+
+.addUserContainer {
+  position: relative;
+  width: 80%;
+  height: 100vh;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.alertsContainer {
+  position: absolute;
+  left: 0;
+  top: 7%;
+  z-index: 10;
+}
+
+.formContainer {
+  width: 100%;
+  background: $add-user-form-background;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.formHead {
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.validateInput {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.addContact {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
