@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
-const Role = require('../models/Role')
-const Class = require('../models/Class')
+const Contact = require('../models/Contact')
+const Role = require("../models/Role");
+const Class = require("../models/Class");
 const router = Router()
 
 router.post('/add_user',
@@ -86,16 +87,51 @@ router.post('/add_user',
                 cab
             })
 
-            console.log(user)
-
             await user.save()
 
             response.status(201).json({message: 'Пользователь создан'})
         } catch (e) {
-            console.log(e)
-            response.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
         }
     }
 )
 
-module.exports = router
+router.post('/add_contact', [
+], async (request, response) => {
+    try {
+        console.log(request.body)
+        const {
+            name,
+            last_name,
+            patronymic,
+            phone,
+            mail
+        } = request.body
+
+        const candidateName = await User.findOne({ name })
+        const candidateLastName = await User.findOne({ last_name })
+        const candidatePatronymic = await User.findOne({ patronymic })
+
+        if (!candidateName || !candidateLastName || !candidatePatronymic) {
+            const data = {errors: [{msg: 'Введите корректные ФИО'}]}
+            return response.status(400).json(data)
+        }
+
+        const contacts = new Contact({
+            name: candidateName,
+            last_name: candidateLastName,
+            patronymic: candidatePatronymic,
+            phone,
+            mail,
+        })
+
+        await contacts.save()
+
+        response.status(201).json({message: 'Контакт создан'})
+    } catch (e) {
+        response.status(500).json({errors: [{msg: 'Введите корректные ФИО'}]})
+    }
+    }
+)
+
+    module.exports = router

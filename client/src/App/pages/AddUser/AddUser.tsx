@@ -40,8 +40,6 @@ const AddUser: React.FC = () => {
 	useEffect(() => {
 		dispatch(cleanForm())
 		cleanError('', true)
-		// eslint-disable-next-line no-console
-		console.log(errors)
 		errors?.map((error: { msg: string }, index: number) => {
 			setShowMessages((prevState) => [...prevState, { msg: error.msg, isWarning: true }])
 		})

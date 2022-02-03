@@ -1,7 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 
 import { AuthContext } from '@context/AuthContext'
 import { useHttp } from '@hooks/http.hook'
+import { RootState } from '@store/rootReducer'
+import { setUser } from '@store/user/actions'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import styles from './Navbar.module.scss'
@@ -10,7 +13,8 @@ const Navbar: React.FC = () => {
 	const auth = useContext(AuthContext)
 	// @ts-ignore
 	const { request } = useHttp()
-	const [role, setRole] = useState<string>('')
+	const dispatch = useDispatch()
+	const user = useSelector((state: RootState) => state.user.user)
 	let navbarElements
 
 	const fetchData = useCallback(async () => {
@@ -18,7 +22,7 @@ const Navbar: React.FC = () => {
 			const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
 				Authorization: `Bearer ${auth.token}`,
 			})
-			setRole(data.role.role)
+			dispatch(setUser(data))
 		} catch (e) {}
 	}, [auth])
 
@@ -26,7 +30,7 @@ const Navbar: React.FC = () => {
 		fetchData()
 	}, [fetchData])
 
-	switch (role) {
+	switch (user.role?.role) {
 		// @ts-ignore
 		case 'Администратор':
 			navbarElements = (
@@ -40,7 +44,9 @@ const Navbar: React.FC = () => {
 						<span className={styles.elementText}>Удалить пользователя</span>
 					</div>
 					<div className={styles.navElement}>
-						<span className={styles.elementText}>Добавить контакты</span>
+						<NavLink to={`/add_contact`} className={styles.elementText}>
+							Добавить контакты
+						</NavLink>
 					</div>
 					<div className={styles.navElement}>
 						<span className={styles.elementText}>Добавить новости</span>
@@ -59,7 +65,6 @@ const Navbar: React.FC = () => {
 					Профиль
 				</NavLink>
 			</div>
-			{/*  будет меняться в зависимости от роли */}
 			{navbarElements}
 			<div className={styles.navElement}>
 				{/* @ts-ignore */}

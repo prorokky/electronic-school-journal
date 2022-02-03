@@ -1,28 +1,14 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import { AuthContext } from '@context/AuthContext'
-import { useHttp } from '@hooks/http.hook'
+import { RootState } from '@store/rootReducer'
+import { useSelector } from 'react-redux'
 
 const Profile: React.FC = () => {
 	const auth = useContext(AuthContext)
-	// @ts-ignore
-	const { request } = useHttp()
+	const user = useSelector((state: RootState) => state.user.user)
 
-	const fetchData = useCallback(async () => {
-		try {
-			const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
-				Authorization: `Bearer ${auth.token}`,
-			})
-			// eslint-disable-next-line no-console
-			console.log(data)
-		} catch (e) {}
-	}, [auth])
-
-	useEffect(() => {
-		fetchData()
-	}, [fetchData])
-
-	return <h1>Profile PAge</h1>
+	return <h1>{user.user?.login}</h1>
 }
 
 export default Profile

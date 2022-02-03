@@ -1,7 +1,7 @@
 @import '@styles/variables.scss';
 
 .alertContainerWarning {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -22,7 +22,7 @@
 }
 
 .alertContainerSuccess {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
