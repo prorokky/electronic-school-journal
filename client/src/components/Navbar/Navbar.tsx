@@ -36,12 +36,9 @@ const Navbar: React.FC = () => {
 			navbarElements = (
 				<>
 					<div className={styles.navElement}>
-						<NavLink to={`/add_user`} className={styles.elementText}>
-							Добавить пользователя
+						<NavLink to={`/user_work`} className={styles.elementText}>
+							Работа с пользователем пользователя
 						</NavLink>
-					</div>
-					<div className={styles.navElement}>
-						<span className={styles.elementText}>Удалить пользователя</span>
 					</div>
 					<div className={styles.navElement}>
 						<NavLink to={`/add_contact`} className={styles.elementText}>

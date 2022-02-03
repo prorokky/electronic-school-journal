@@ -3,9 +3,9 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddContact from './App/pages/AddContact'
-import AddUser from './App/pages/AddUser'
 import Auth from './App/pages/Auth'
 import Profile from './App/pages/Profile'
+import User from './App/pages/User'
 
 // TODO: редирект в зависимости от роли
 
@@ -13,8 +13,8 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 	if (isAuthenticated) {
 		return (
 			<Switch>
-				<Route path="/add_user" exact>
-					<AddUser />
+				<Route path="/user_work" exact>
+					<User />
 				</Route>
 				<Route path="/profile/:id" exact>
 					<Profile />
@@ -22,8 +22,8 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/add_contact" exact>
 					<AddContact />
 				</Route>
-				<Redirect to="/add_user">
-					<AddUser />
+				<Redirect to="/user_work">
+					<User />
 				</Redirect>
 			</Switch>
 		)

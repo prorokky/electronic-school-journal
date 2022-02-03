@@ -107,7 +107,7 @@ const AddContact: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.addContact}>
-						<Button isDisabled={loading}>добавить</Button>
+						<Button isDisabled={loading} color={'green'}>добавить</Button>
 					</div>
 				</form>
 			</div>

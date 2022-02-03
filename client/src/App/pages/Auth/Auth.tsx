@@ -67,7 +67,7 @@ const Auth: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.signIn}>
-						<Button isDisabled={loading}>войти</Button>
+						<Button isDisabled={loading} color={'green'}>войти</Button>
 					</div>
 				</form>
 			</div>

@@ -60,7 +60,7 @@ router.post('/add_user',
             const classCandidate = await Class.findOne({ class_study })
 
             if (candidate) {
-                const data = [{msg: 'Пользователь уже создан'}]
+                const data = {errors: [{msg: 'Введите корректные ФИО'}]}
                 return response.status(400).json(data)
             }
 
@@ -88,6 +88,36 @@ router.post('/add_user',
             })
 
             await user.save()
+
+            response.status(201).json({message: 'Пользователь создан'})
+        } catch (e) {
+            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
+        }
+    }
+)
+
+router.post('/delete_user',
+    [
+        check('login', 'Неправильно указан логин')
+            .isString()
+            .notEmpty(),
+    ],
+    async (request, response) => {
+        try {
+            const errors = validationResult(request)
+
+            if (!errors.isEmpty()) {
+                return response.status(400).json({
+                    errors: errors.array(),
+                    message: 'Некорректные данные при удалении пользователя'
+                })
+            }
+
+            const {
+                login,
+            } = request.body
+
+            const candidate = await User.deleteOne({ login })
 
             response.status(201).json({message: 'Пользователь создан'})
         } catch (e) {
