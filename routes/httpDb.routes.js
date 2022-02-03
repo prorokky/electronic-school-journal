@@ -60,7 +60,7 @@ router.post('/add_user',
             const classCandidate = await Class.findOne({ class_study })
 
             if (candidate) {
-                const data = {errors: [{msg: 'Введите корректные ФИО'}]}
+                const data = {errors: [{msg: 'Пользователь создан'}]}
                 return response.status(400).json(data)
             }
 
@@ -96,6 +96,46 @@ router.post('/add_user',
     }
 )
 
+router.post('/update_user',
+    [],
+    async (request, response) => {
+        try {
+            const {
+                login,
+                role,
+                class_study,
+                subject,
+                name,
+                last_name,
+                patronymic,
+                cab
+            } = request.body
+
+            const user = await User.findOne({ login })
+            const roleCandidate = await Role.findOne({ role })
+            const classCandidate = await Class.findOne({ class_study })
+            const updateCandidate = {
+                login,
+                password: user.password,
+                role: roleCandidate,
+                class_study: classCandidate,
+                subject,
+                name,
+                last_name,
+                patronymic,
+                cab
+            }
+
+            const candidate = await User.findByIdAndUpdate(user.id, updateCandidate)
+
+            response.status(201).json({message: 'Пользователь обновлен'})
+        } catch (e) {
+            console.log(e)
+            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
+        }
+    }
+)
+
 router.post('/delete_user',
     [
         check('login', 'Неправильно указан логин')
@@ -117,9 +157,9 @@ router.post('/delete_user',
                 login,
             } = request.body
 
-            const candidate = await User.deleteOne({ login })
+            await User.deleteOne({ login })
 
-            response.status(201).json({message: 'Пользователь создан'})
+            response.status(201).json({message: 'Пользователь удален'})
         } catch (e) {
             response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
         }

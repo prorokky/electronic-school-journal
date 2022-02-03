@@ -86,6 +86,25 @@ const User: React.FC = () => {
 		dispatch(cleanForm())
 	}
 
+	const updateUserHandler = async () => {
+		cleanError('', true)
+		const payload = {
+			login,
+			role,
+			class_study,
+			subject,
+			name,
+			last_name,
+			patronymic,
+			cab,
+		}
+		try {
+			const data = await request('/api/update_user', 'POST', { ...payload })
+			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
+		} catch (e) {}
+		dispatch(cleanForm())
+	}
+
 	return (
 		<div className={styles.addUserContainer}>
 			<div className={styles.alertsContainer}>
@@ -100,6 +119,7 @@ const User: React.FC = () => {
 				<form>
 					<h1 className={styles.formHead}>Работа с пользователями</h1>
 					<span className={styles.info}>Для удаления заполните только логин</span>
+					<span className={styles.info}>Для изменения заполните все поля, кроме пароля</span>
 					<div className={styles.validateInput}>
 						<Input
 							value={login}
@@ -168,7 +188,7 @@ const User: React.FC = () => {
 							</Button>
 						</div>
 						<div className={styles.button}>
-							<Button isDisabled={loading} onClick={deleteUserHandler} color={'blue'}>
+							<Button isDisabled={loading} onClick={updateUserHandler} color={'blue'}>
 								изменить
 							</Button>
 						</div>
