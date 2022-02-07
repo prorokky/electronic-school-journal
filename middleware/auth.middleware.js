@@ -17,7 +17,6 @@ module.exports = (request, response, next) => {
         request.user = decoded
         next()
     } catch (e) {
-        console.log(e)
         response.status(401).json({ message: 'Нет авторизации' })
     }
 }

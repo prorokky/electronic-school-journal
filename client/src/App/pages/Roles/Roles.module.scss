@@ -1,6 +1,6 @@
 @import '@styles/variables.scss';
 
-.profileContainer {
+.rolesContainer {
   width: 80%;
   background: $page-background;
   border-radius: 5px 5px 0 0;
@@ -12,13 +12,13 @@
   align-items: center;
 }
 
-.profileHeader {
+.rolesHeader {
   font-size: 24px;
   color: #333333;
   margin: 10px;
 }
 
-.profileInfo {
+.rolesInfo {
   width: 100%;
   overflow: hidden;
   display: flex;

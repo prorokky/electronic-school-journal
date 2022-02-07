@@ -37,7 +37,6 @@ router.get('/:id', auth, async (request, response) => {
 
         response.json(userData)
     } catch (e) {
-        console.log(e)
         response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
 })

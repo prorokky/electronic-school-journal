@@ -9,6 +9,7 @@ const Contact = require('../models/Contact')
 const Role = require('../models/Role')
 const Class = require('../models/Class')
 const Subject = require('../models/Subject')
+const auth = require("../middleware/auth.middleware");
 const router = Router()
 
 router.post('/add_user',
@@ -137,7 +138,6 @@ router.post('/update_user',
 
             response.status(201).json({message: 'Пользователь обновлен'})
         } catch (e) {
-            console.log(e)
             response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
         }
     }
@@ -173,10 +173,31 @@ router.post('/delete_user',
     }
 )
 
+router.get('/get_roles', auth, async (request, response) => {
+    try {
+        const users = await User.find()
+        const rolesArray = []
+
+        for (let i = 0; i < users.length; i++)  {
+            const roleNameCandidate = await Role.findOne({ _id: users[i].role })
+            rolesArray.push({
+                last_name: users[i].last_name,
+                name: users[i].name,
+                patronymic: users[i].patronymic,
+                login: users[i].login,
+                role: roleNameCandidate.role,
+            })
+        }
+
+        response.json(rolesArray)
+    } catch (e) {
+        response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    }
+})
+
 router.post('/add_contact', [
 ], async (request, response) => {
     try {
-        console.log(request.body)
         const {
             name,
             last_name,
