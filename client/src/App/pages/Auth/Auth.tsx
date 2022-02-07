@@ -35,6 +35,7 @@ const Auth: React.FC = () => {
 		}
 		try {
 			const data = await request('/api/auth/login', 'POST', { ...payload })
+			// @ts-ignore
 			auth.login(data.token, data.userId)
 		} catch (e) {}
 		dispatch(cleanForm())

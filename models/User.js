@@ -20,7 +20,8 @@ const schema = new Schema({
         ref: 'Class'// класс обучения, необходимо для учеников, их родителей, классного руководителя
     },
     subject: {
-        type: String // предмет обучения, необходимо для учителя
+        type: Types.ObjectId,
+        ref: 'Subject', // предмет обучения, необходимо для учителя
     },
     name: {
         type: String,

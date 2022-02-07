@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  background: $page-background;
   z-index: 5;
 }
 
@@ -21,7 +22,6 @@
 
 .formContainer {
   width: 100%;
-  background: $add-user-form-background;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   display: flex;

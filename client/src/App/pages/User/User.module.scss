@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   z-index: 5;
+  background: $page-background;
 }
 
 .alertsContainer {
@@ -27,7 +28,6 @@
 
 .formContainer {
   width: 100%;
-  background: $add-user-form-background;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   display: flex;

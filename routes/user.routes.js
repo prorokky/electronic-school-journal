@@ -6,8 +6,9 @@ const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const Contact = require('../models/Contact')
-const Role = require("../models/Role");
-const Class = require("../models/Class");
+const Role = require('../models/Role')
+const Class = require('../models/Class')
+const Subject = require('../models/Subject')
 const router = Router()
 
 router.post('/add_user',
@@ -58,6 +59,7 @@ router.post('/add_user',
             const candidate = await User.findOne({ login })
             const roleCandidate = await Role.findOne({ role })
             const classCandidate = await Class.findOne({ class_study })
+            const subjectCandidate = await Subject.findOne({ subject })
 
             if (candidate) {
                 const data = {errors: [{msg: 'Пользователь создан'}]}
@@ -74,13 +76,18 @@ router.post('/add_user',
                 return response.status(400).json(data)
             }
 
+            if (!subjectCandidate) {
+                const data = {errors: [{msg: 'Введите корректный предмет'}]}
+                return response.status(400).json(data)
+            }
+
             const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({
                 login,
                 password: hashedPassword,
                 role: roleCandidate,
                 class_study: classCandidate,
-                subject,
+                subject: subjectCandidate,
                 name,
                 last_name,
                 patronymic,

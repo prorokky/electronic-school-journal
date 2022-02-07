@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 
-function noop(token: any, userId: any) {}
+// @ts-ignore
+function noop() {}
 
 export const AuthContext = createContext({
 	token: null,

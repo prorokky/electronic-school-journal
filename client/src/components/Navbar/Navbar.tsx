@@ -19,10 +19,12 @@ const Navbar: React.FC = () => {
 
 	const fetchData = useCallback(async () => {
 		try {
-			const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
-				Authorization: `Bearer ${auth.token}`,
-			})
-			dispatch(setUser(data))
+			if (auth.userId) {
+				const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
+					Authorization: `Bearer ${auth.token}`,
+				})
+				dispatch(setUser(data))
+			}
 		} catch (e) {}
 	}, [auth])
 
@@ -30,14 +32,14 @@ const Navbar: React.FC = () => {
 		fetchData()
 	}, [fetchData])
 
-	switch (user.role?.role) {
+	switch (user.role) {
 		// @ts-ignore
 		case 'Администратор':
 			navbarElements = (
 				<>
 					<div className={styles.navElement}>
 						<NavLink to={`/user_work`} className={styles.elementText}>
-							Работа с пользователем пользователя
+							Работа с пользователем
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>
