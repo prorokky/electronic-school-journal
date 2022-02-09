@@ -3,10 +3,11 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddContact from './App/pages/AddContact'
+import AddNews from './App/pages/AddNews'
 import Auth from './App/pages/Auth'
 import Profile from './App/pages/Profile'
+import Roles from './App/pages/Roles'
 import User from './App/pages/User'
-import Roles from "./App/pages/Roles";
 
 // TODO: редирект в зависимости от роли
 
@@ -22,6 +23,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/add_contact" exact>
 					<AddContact />
+				</Route>
+				<Route path="/add_news" exact>
+					<AddNews />
 				</Route>
 				<Route path="/roles" exact>
 					<Roles />

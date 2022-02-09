@@ -74,7 +74,7 @@ const AddContact: React.FC = () => {
 			</div>
 			<div className={styles.formContainer}>
 				<form onSubmit={(event) => addContactHandler(event)}>
-					<h1 className={styles.formHead}>Добавление пользователя</h1>
+					<h1 className={styles.formHead}>Добавление контактов</h1>
 					<div className={styles.validateInput}>
 						<Input
 							value={last_name}

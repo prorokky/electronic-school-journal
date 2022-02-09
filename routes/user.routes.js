@@ -232,4 +232,4 @@ router.post('/add_contact', [
     }
 )
 
-    module.exports = router
+module.exports = router
