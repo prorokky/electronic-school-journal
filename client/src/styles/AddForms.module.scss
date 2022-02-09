@@ -1,6 +1,6 @@
 @import '@styles/variables.scss';
 
-.addUserContainer {
+.container {
   position: relative;
   width: 80%;
   height: 100vh;
@@ -48,6 +48,13 @@
 .validateInput {
   position: relative;
   width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.validateTextarea {
+  position: relative;
+  width: 500px;
   z-index: 1;
   margin-bottom: 10px;
 }

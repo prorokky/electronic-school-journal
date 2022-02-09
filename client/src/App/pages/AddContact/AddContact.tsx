@@ -15,7 +15,7 @@ import {
 import { RootState } from '@store/rootReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
-import styles from './AddContact.module.scss'
+import styles from '@styles/AddForms.module.scss'
 
 const AddContact: React.FC = () => {
 	// @ts-ignore
@@ -63,7 +63,7 @@ const AddContact: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.addUserContainer}>
+		<div className={styles.container}>
 			<div className={styles.alertsContainer}>
 				{showMessages.map((message, index) => {
 					return (
@@ -106,7 +106,7 @@ const AddContact: React.FC = () => {
 							onChange={(event) => dispatch(onChangeMail(event))}
 						/>
 					</div>
-					<div className={styles.addContact}>
+					<div className={styles.button}>
 						<Button isDisabled={loading} color={'green'}>добавить</Button>
 					</div>
 				</form>

@@ -9,7 +9,8 @@ import { clearForm, onChangeText, onChangeHeader } from '@store/news/actions'
 import { RootState } from '@store/rootReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
-import styles from './AddNews.module.scss'
+import styles from '@styles/AddForms.module.scss'
+import css from './AddNews.module.scss'
 
 const AddNews: React.FC = () => {
 	// @ts-ignore
@@ -51,7 +52,7 @@ const AddNews: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.addNewsContainer}>
+		<div className={styles.container}>
 			<div className={styles.alertsContainer}>
 				{showMessages.map((message, index) => {
 					return (
@@ -77,7 +78,7 @@ const AddNews: React.FC = () => {
 							onChange={(event) => dispatch(onChangeText(event))}
 						/>
 					</div>
-					<div className={styles.addNews}>
+					<div className={styles.button}>
 						<Button isDisabled={loading} color={'green'}>
 							добавить
 						</Button>

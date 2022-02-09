@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Input from '@components/Input'
-import Navbar from '@components/Navbar'
 import { useHttp } from '@hooks/http.hook'
 import {
 	onChangeCab,
@@ -18,9 +17,8 @@ import {
 	cleanForm,
 } from '@store/addUser/actions'
 import { RootState } from '@store/rootReducer'
+import styles from '@styles/AddForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-
-import styles from './User.module.scss'
 
 const User: React.FC = () => {
 	// @ts-ignore
@@ -106,7 +104,7 @@ const User: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.addUserContainer}>
+		<div className={styles.container}>
 			<div className={styles.alertsContainer}>
 				{showMessages.map((message, index) => {
 					return (
@@ -193,7 +191,6 @@ const User: React.FC = () => {
 							</Button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>
