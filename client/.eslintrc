@@ -5,6 +5,7 @@
     ],
     "plugins": ["prettier"],
     "rules": {
+      "@ts-ignore": "off",
       "no-console": "error",
       "prettier/prettier": [
         "error",

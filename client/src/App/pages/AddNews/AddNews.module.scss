@@ -1,6 +1,6 @@
 @import '@styles/variables.scss';
 
-.addUserContainer {
+.addNewsContainer {
   position: relative;
   width: 80%;
   height: 100vh;
@@ -26,6 +26,7 @@
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
+  margin: 10px;
   justify-content: center;
 }
 
@@ -33,21 +34,26 @@
   font-size: 24px;
   color: #333333;
   line-height: 1.2;
-  text-align: center;
   width: 100%;
-  display: block;
-  margin: 10px 0;
+  display: flex;
+  margin: 10px;
+  justify-content: center;
 }
 
 .validateInput {
-  position: relative;
-  width: 100%;
+  width: 500px;
   z-index: 1;
   margin-bottom: 10px;
 }
 
-.addContact {
-  width: 100%;
+.validateTextarea {
+  width: 500px;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.addNews {
+  width: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

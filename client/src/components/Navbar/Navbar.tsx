@@ -19,10 +19,12 @@ const Navbar: React.FC = () => {
 
 	const fetchData = useCallback(async () => {
 		try {
-			const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
-				Authorization: `Bearer ${auth.token}`,
-			})
-			dispatch(setUser(data))
+			if (auth.userId) {
+				const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
+					Authorization: `Bearer ${auth.token}`,
+				})
+				dispatch(setUser(data))
+			}
 		} catch (e) {}
 	}, [auth])
 
@@ -30,18 +32,15 @@ const Navbar: React.FC = () => {
 		fetchData()
 	}, [fetchData])
 
-	switch (user.role?.role) {
+	switch (user.role) {
 		// @ts-ignore
 		case 'Администратор':
 			navbarElements = (
 				<>
 					<div className={styles.navElement}>
-						<NavLink to={`/add_user`} className={styles.elementText}>
-							Добавить пользователя
+						<NavLink to={`/user_work`} className={styles.elementText}>
+							Работа с пользователем
 						</NavLink>
-					</div>
-					<div className={styles.navElement}>
-						<span className={styles.elementText}>Удалить пользователя</span>
 					</div>
 					<div className={styles.navElement}>
 						<NavLink to={`/add_contact`} className={styles.elementText}>
@@ -49,10 +48,14 @@ const Navbar: React.FC = () => {
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>
-						<span className={styles.elementText}>Добавить новости</span>
+						<NavLink to={`/add_news`} className={styles.elementText}>
+							Добавить новости
+						</NavLink>
 					</div>
 					<div className={styles.navElement}>
-						<span className={styles.elementText}>Роли</span>
+						<NavLink to={`/roles`} className={styles.elementText}>
+							Роли
+						</NavLink>
 					</div>
 				</>
 			)

@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   z-index: 5;
+  background: $page-background;
 }
 
 .alertsContainer {
@@ -19,9 +20,14 @@
   z-index: 10;
 }
 
+.info {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
 .formContainer {
   width: 100%;
-  background: $add-user-form-background;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   display: flex;
@@ -46,11 +52,17 @@
   margin-bottom: 10px;
 }
 
-.createUser {
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.button {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-top: 20px;
-  margin-bottom: 10px;
+  margin: 10px;
 }

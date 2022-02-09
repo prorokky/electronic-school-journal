@@ -35,6 +35,7 @@ const Auth: React.FC = () => {
 		}
 		try {
 			const data = await request('/api/auth/login', 'POST', { ...payload })
+			// @ts-ignore
 			auth.login(data.token, data.userId)
 		} catch (e) {}
 		dispatch(cleanForm())
@@ -67,7 +68,7 @@ const Auth: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.signIn}>
-						<Button isDisabled={loading}>войти</Button>
+						<Button isDisabled={loading} color={'green'}>войти</Button>
 					</div>
 				</form>
 			</div>

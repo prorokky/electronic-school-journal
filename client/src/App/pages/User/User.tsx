@@ -20,9 +20,9 @@ import {
 import { RootState } from '@store/rootReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
-import styles from './AddUser.module.scss'
+import styles from './User.module.scss'
 
-const AddUser: React.FC = () => {
+const User: React.FC = () => {
 	// @ts-ignore
 	const { loading, errors, request } = useHttp()
 	const dispatch = useDispatch()
@@ -54,8 +54,7 @@ const AddUser: React.FC = () => {
 		}
 	}
 
-	const addUserHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
+	const addUserHandler = async () => {
 		cleanError('', true)
 		const payload = {
 			login,
@@ -75,6 +74,37 @@ const AddUser: React.FC = () => {
 		dispatch(cleanForm())
 	}
 
+	const deleteUserHandler = async () => {
+		cleanError('', true)
+		const payload = {
+			login,
+		}
+		try {
+			const data = await request('/api/delete_user', 'POST', { ...payload })
+			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
+		} catch (e) {}
+		dispatch(cleanForm())
+	}
+
+	const updateUserHandler = async () => {
+		cleanError('', true)
+		const payload = {
+			login,
+			role,
+			class_study,
+			subject,
+			name,
+			last_name,
+			patronymic,
+			cab,
+		}
+		try {
+			const data = await request('/api/update_user', 'POST', { ...payload })
+			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
+		} catch (e) {}
+		dispatch(cleanForm())
+	}
+
 	return (
 		<div className={styles.addUserContainer}>
 			<div className={styles.alertsContainer}>
@@ -86,8 +116,10 @@ const AddUser: React.FC = () => {
 				})}
 			</div>
 			<div className={styles.formContainer}>
-				<form onSubmit={(event) => addUserHandler(event)}>
-					<h1 className={styles.formHead}>Добавление пользователя</h1>
+				<form>
+					<h1 className={styles.formHead}>Работа с пользователями</h1>
+					<span className={styles.info}>Для удаления заполните только логин</span>
+					<span className={styles.info}>Для изменения заполните все поля, кроме пароля</span>
 					<div className={styles.validateInput}>
 						<Input
 							value={login}
@@ -144,13 +176,28 @@ const AddUser: React.FC = () => {
 							onChange={(event) => dispatch(onChangeCab(event))}
 						/>
 					</div>
-					<div className={styles.createUser}>
-						<Button isDisabled={loading}>создать</Button>
+					<div className={styles.buttonContainer}>
+						<div className={styles.button}>
+							<Button isDisabled={loading} onClick={deleteUserHandler} color={'red'}>
+								удалить
+							</Button>
+						</div>
+						<div className={styles.button}>
+							<Button isDisabled={loading} onClick={addUserHandler} color={'green'}>
+								создать
+							</Button>
+						</div>
+						<div className={styles.button}>
+							<Button isDisabled={loading} onClick={updateUserHandler} color={'blue'}>
+								изменить
+							</Button>
+						</div>
 					</div>
+
 				</form>
 			</div>
 		</div>
 	)
 }
 
-export default AddUser
+export default User
