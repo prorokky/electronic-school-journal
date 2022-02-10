@@ -1,21 +1,21 @@
 import React, { useCallback, useContext, useEffect } from 'react'
 
 import { AuthContext } from '@context/AuthContext'
-import { useHttp } from '@hooks/http.hook'
 import { RootState } from '@store/rootReducer'
 import { setUser } from '@store/user/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
+import { sentHttp } from '../../helpers'
 import styles from './Navbar.module.scss'
 
 const Navbar: React.FC = () => {
 	const auth = useContext(AuthContext)
 	// @ts-ignore
-	const { request } = useHttp()
+	const { request } = sentHttp()
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user.user)
-	let navbarElements
+	let navbarElements: JSX.Element = <></>
 
 	const fetchData = useCallback(async () => {
 		try {
