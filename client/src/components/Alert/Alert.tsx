@@ -5,7 +5,7 @@ import clsx from 'classnames'
 import styles from './Alert.module.scss'
 
 type AlertProps = {
-	cleanError: (message: string, allError: boolean) => void
+	cleanError?: (message: string, allError: boolean) => void
 	text: string
 	isWarning: boolean
 }

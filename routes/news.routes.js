@@ -17,9 +17,9 @@ router.post('/add_news', [
 
             await news.save()
 
-            response.status(201).json({message: 'Новость добавлена'})
+            response.status(201).json([{message: 'Новость добавлена', isWarning: false}])
         } catch (e) {
-            response.status(500).json({errors: [{msg: 'Введены неккоректные данные'}]})
+            response.status(500).json({message: 'Введите корректные данные', isWarning: true})
         }
     }
 )
