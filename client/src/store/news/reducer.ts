@@ -1,5 +1,4 @@
 import {
-	CLEAR_FORM,
 	ON_CHANGE_HEADER,
 	ON_CHANGE_TEXT,
 	ADDING_NEWS_START,
@@ -29,11 +28,6 @@ export const news = (state = initialState, action: { type: any; payload: any }) 
 			return { ...state, text: action.payload }
 		case CLEAR_ERRORS:
 			return { ...state, messages: [] }
-		case CLEAR_FORM:
-			return {
-				header: '',
-				text: '',
-			}
 		default:
 			return state
 	}

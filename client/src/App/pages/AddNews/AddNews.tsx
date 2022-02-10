@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Alert from '@components/Alert'
 import Button from '@components/Button'
@@ -15,7 +15,7 @@ const AddNews: React.FC = () => {
 	const header = useSelector((state: RootState) => state.news.header)
 	const text = useSelector((state: RootState) => state.news.text)
 	const messages = useSelector((state: RootState) => state.news.messages)
-	const loading = useSelector((state: RootState) => state.news.isLoading)
+	const isLoading = useSelector((state: RootState) => state.news.isLoading)
 
 	const addNewsHandler = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -55,7 +55,7 @@ const AddNews: React.FC = () => {
 						/>
 					</div>
 					<div className={styles.button}>
-						<Button isDisabled={loading} color={'green'}>
+						<Button isDisabled={isLoading} color={'green'}>
 							добавить
 						</Button>
 					</div>

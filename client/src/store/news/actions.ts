@@ -3,9 +3,8 @@ import { sentHttp } from '../../helpers'
 export const ON_CHANGE_HEADER = 'on_change_header'
 export const ON_CHANGE_TEXT = 'on_change_text'
 export const ADDING_NEWS_START = 'adding_news_start'
-export const ADDING_NEWS_SUCCESS = 'start_adding_news_success'
-export const ADDING_NEWS_FAILED = 'start_adding_news_failed'
-export const CLEAR_FORM = 'clear_form'
+export const ADDING_NEWS_SUCCESS = 'adding_news_success'
+export const ADDING_NEWS_FAILED = 'adding_news_failed'
 export const CLEAR_ERRORS = 'clear_ERRORS'
 
 export function onChangeText(text: string) {

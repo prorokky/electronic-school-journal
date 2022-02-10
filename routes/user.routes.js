@@ -195,9 +195,18 @@ router.get('/get_roles', auth, async (request, response) => {
     }
 })
 
-router.post('/add_contact', [
-], async (request, response) => {
+router.post('/add_contact',
+    [
+        check('mail', 'Неправильно указан логин')
+            .isEmail()
+    ],
+    async (request, response) => {
     try {
+        const errors = validationResult(request)
+
+        if (!errors.isEmpty()) {
+            return response.status(400).json({message: 'Введите корректную почту', isWarning: true})
+        }
         const {
             name,
             last_name,
@@ -211,7 +220,7 @@ router.post('/add_contact', [
         const candidatePatronymic = await User.findOne({ patronymic })
 
         if (!candidateName || !candidateLastName || !candidatePatronymic) {
-            const data = {errors: [{msg: 'Введите корректные ФИО'}]}
+            const data = {message: 'Введите корректные ФИО', isWarning: true}
             return response.status(400).json(data)
         }
 
@@ -225,9 +234,9 @@ router.post('/add_contact', [
 
         await contacts.save()
 
-        response.status(201).json({message: 'Контакт создан'})
+        response.status(201).json([{message: 'Контакт создан', isWarning: false}])
     } catch (e) {
-        response.status(500).json({errors: [{msg: 'Введите корректные ФИО'}]})
+        response.status(500).json({message: 'Введите корректные ФИО', isWarning: true})
     }
     }
 )
