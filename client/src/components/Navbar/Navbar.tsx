@@ -17,6 +17,8 @@ const Navbar: React.FC = () => {
 	const user = useSelector((state: RootState) => state.user.user)
 	let navbarElements: JSX.Element = <></>
 
+	// TODO: вынести fetchData в redux
+
 	const fetchData = useCallback(async () => {
 		try {
 			if (auth.userId) {

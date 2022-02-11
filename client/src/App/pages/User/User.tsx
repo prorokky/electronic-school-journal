@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import { useHttp } from '@hooks/http.hook'
+import { RootState } from '@store/rootReducer'
 import {
 	onChangeCab,
 	onChangeClassStudy,
@@ -15,8 +16,11 @@ import {
 	onChangeRole,
 	onChangeSubject,
 	cleanForm,
-} from '@store/addUser/actions'
-import { RootState } from '@store/rootReducer'
+	deleteUser,
+	clearErrors,
+	addUser,
+	updateUser,
+} from '@store/userWork/actions'
 import styles from '@styles/AddForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -24,92 +28,46 @@ const User: React.FC = () => {
 	// @ts-ignore
 	const { loading, errors, request } = useHttp()
 	const dispatch = useDispatch()
-	const login = useSelector((state: RootState) => state.addUser.userLogin)
-	const password = useSelector((state: RootState) => state.addUser.userPassword)
-	const role = useSelector((state: RootState) => state.addUser.role)
-	const class_study = useSelector((state: RootState) => state.addUser.classStudy)
-	const subject = useSelector((state: RootState) => state.addUser.subject)
-	const name = useSelector((state: RootState) => state.addUser.name)
-	const last_name = useSelector((state: RootState) => state.addUser.lastName)
-	const patronymic = useSelector((state: RootState) => state.addUser.patronymic)
-	const cab = useSelector((state: RootState) => state.addUser.cab)
-	const [showMessages, setShowMessages] = useState<Object[]>([])
+	const login = useSelector((state: RootState) => state.userWork.userLogin)
+	const password = useSelector((state: RootState) => state.userWork.userPassword)
+	const role = useSelector((state: RootState) => state.userWork.role)
+	const class_study = useSelector((state: RootState) => state.userWork.classStudy)
+	const subject = useSelector((state: RootState) => state.userWork.subject)
+	const name = useSelector((state: RootState) => state.userWork.name)
+	const last_name = useSelector((state: RootState) => state.userWork.lastName)
+	const patronymic = useSelector((state: RootState) => state.userWork.patronymic)
+	const cab = useSelector((state: RootState) => state.userWork.cab)
+	const messages = useSelector((state: RootState) => state.userWork.messages)
 
-	useEffect(() => {
-		dispatch(cleanForm())
-		cleanError('', true)
-		errors?.map((error: { msg: string }, index: number) => {
-			setShowMessages((prevState) => [...prevState, { msg: error.msg, isWarning: true }])
-		})
-	}, [errors])
-
-	const cleanError = (msg: string, allErrors: boolean) => {
-		if (allErrors) {
-			setShowMessages([])
-		} else {
-			// @ts-ignore
-			setShowMessages(showMessages.filter((message) => message.msg !== msg))
-		}
+	const addUserHandler = async (event) => {
+		event.preventDefault()
+		dispatch(addUser())
 	}
 
-	const addUserHandler = async () => {
-		cleanError('', true)
-		const payload = {
-			login,
-			password,
-			role,
-			class_study,
-			subject,
-			name,
-			last_name,
-			patronymic,
-			cab,
-		}
-		try {
-			const data = await request('/api/add_user', 'POST', { ...payload })
-			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
-		} catch (e) {}
-		dispatch(cleanForm())
+	const deleteUserHandler = (event) => {
+		event.preventDefault()
+		dispatch(deleteUser())
 	}
 
-	const deleteUserHandler = async () => {
-		cleanError('', true)
-		const payload = {
-			login,
-		}
-		try {
-			const data = await request('/api/delete_user', 'POST', { ...payload })
-			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
-		} catch (e) {}
-		dispatch(cleanForm())
+	const updateUserHandler = async (event) => {
+		event.preventDefault()
+		dispatch(updateUser())
 	}
 
-	const updateUserHandler = async () => {
-		cleanError('', true)
-		const payload = {
-			login,
-			role,
-			class_study,
-			subject,
-			name,
-			last_name,
-			patronymic,
-			cab,
-		}
-		try {
-			const data = await request('/api/update_user', 'POST', { ...payload })
-			setShowMessages((prevState) => [...prevState, { msg: data.message, isWarning: false }])
-		} catch (e) {}
-		dispatch(cleanForm())
-	}
+	// TODO: вынести верстку отдельной компонентой
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.alertsContainer}>
-				{showMessages.map((message, index) => {
+				{messages?.map((message, index) => {
 					return (
 						// @ts-ignore
-						<Alert cleanError={cleanError} text={message.msg} key={index} isWarning={message.isWarning} />
+						<Alert
+							cleanError={() => dispatch(clearErrors())}
+							text={message.message}
+							key={index}
+							isWarning={message.isWarning}
+						/>
 					)
 				})}
 			</div>
@@ -176,17 +134,17 @@ const User: React.FC = () => {
 					</div>
 					<div className={styles.buttonContainer}>
 						<div className={styles.button}>
-							<Button isDisabled={loading} onClick={deleteUserHandler} color={'red'}>
+							<Button isDisabled={loading} onClick={(event) => deleteUserHandler(event)} color={'red'}>
 								удалить
 							</Button>
 						</div>
 						<div className={styles.button}>
-							<Button isDisabled={loading} onClick={addUserHandler} color={'green'}>
+							<Button isDisabled={loading} onClick={(event) => addUserHandler(event)} color={'green'}>
 								создать
 							</Button>
 						</div>
 						<div className={styles.button}>
-							<Button isDisabled={loading} onClick={updateUserHandler} color={'blue'}>
+							<Button isDisabled={loading} onClick={(event) => updateUserHandler(event)} color={'blue'}>
 								изменить
 							</Button>
 						</div>

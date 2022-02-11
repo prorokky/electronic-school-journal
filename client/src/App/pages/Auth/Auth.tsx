@@ -8,12 +8,13 @@ import Button from '@components/Button'
 import Input from '@components/Input'
 import { AuthContext } from '@context/AuthContext'
 import { clearErrors } from '@store/addContact/actions'
-import {AUTH_FAILED, AUTH_START, AUTH_SUCCESS, onChangeLogin, onChangePassword} from '@store/auth/actions'
+import { AUTH_FAILED, AUTH_START, AUTH_SUCCESS, onChangeLogin, onChangePassword } from '@store/auth/actions'
 import { RootState } from '@store/rootReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { sentHttp } from '../../../helpers'
 import styles from './Auth.module.scss'
+import {CLEAN_FORM} from "@store/userWork/actions";
 
 const Auth: React.FC = () => {
 	const login = useSelector((state: RootState) => state.authReducer.login)
@@ -39,6 +40,9 @@ const Auth: React.FC = () => {
 			auth.login(data.token, data.userId)
 			dispatch({
 				type: AUTH_SUCCESS,
+			})
+			dispatch({
+				type: CLEAN_FORM,
 			})
 		} catch (e) {
 			dispatch({
