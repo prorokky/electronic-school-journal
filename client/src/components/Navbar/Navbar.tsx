@@ -2,32 +2,21 @@ import React, { useCallback, useContext, useEffect } from 'react'
 
 import { AuthContext } from '@context/AuthContext'
 import { RootState } from '@store/rootReducer'
-import { setUser } from '@store/user/actions'
+import { fetchUserData } from '@store/user/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { sentHttp } from '../../helpers'
 import styles from './Navbar.module.scss'
 
 const Navbar: React.FC = () => {
 	const auth = useContext(AuthContext)
 	// @ts-ignore
-	const { request } = sentHttp()
 	const dispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.user.user)
 	let navbarElements: JSX.Element = <></>
 
-	// TODO: вынести fetchData в redux
-
 	const fetchData = useCallback(async () => {
-		try {
-			if (auth.userId) {
-				const data = await request(`/api/profile/${auth.userId}`, 'GET', null, {
-					Authorization: `Bearer ${auth.token}`,
-				})
-				dispatch(setUser(data))
-			}
-		} catch (e) {}
+		dispatch(fetchUserData(auth.userId, auth.token))
 	}, [auth])
 
 	useEffect(() => {
