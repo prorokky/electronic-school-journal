@@ -3,4 +3,5 @@ export type AddNewsReducer = {
 	text: string
 	messages: object[]
 	isLoading: boolean
+	news: object[]
 }

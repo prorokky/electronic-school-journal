@@ -1,4 +1,12 @@
-import {AUTH, AUTH_FAILED, AUTH_START, AUTH_SUCCESS, CLEAR_ERRORS, ON_CHANGE_LOGIN, ON_CHANGE_PASSWORD} from './actions'
+import {
+	AUTH,
+	AUTH_FAILED,
+	AUTH_START,
+	AUTH_SUCCESS,
+	CLEAR_ERRORS,
+	ON_CHANGE_LOGIN,
+	ON_CHANGE_PASSWORD,
+} from './actions'
 import { AuthReducerState } from './types'
 
 const initialState: AuthReducerState = {

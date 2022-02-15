@@ -41,9 +41,6 @@ const Auth: React.FC = () => {
 			dispatch({
 				type: AUTH_SUCCESS,
 			})
-			dispatch({
-				type: CLEAN_FORM,
-			})
 		} catch (e) {
 			dispatch({
 				type: AUTH_FAILED,

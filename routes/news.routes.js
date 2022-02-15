@@ -1,5 +1,6 @@
-const News = require('../models/News')
 const {Router} = require("express");
+const auth = require("../middleware/auth.middleware");
+const News = require("../models/News")
 const router = Router()
 
 router.post('/add_news', [
@@ -23,5 +24,15 @@ router.post('/add_news', [
         }
     }
 )
+
+router.get('/get_news', auth, async (request, response) => {
+    try {
+        const news = await News.find()
+
+        response.json(news)
+    } catch (e) {
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
+    }
+})
 
 module.exports = router
