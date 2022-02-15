@@ -1,3 +1,5 @@
+import { CLEAN_FORM } from '@store/userWork/actions'
+
 import {
 	AUTH,
 	AUTH_FAILED,
@@ -33,6 +35,12 @@ export const authReducer = (state = initialState, action: { type: any; payload: 
 		case CLEAR_ERRORS: {
 			return { ...state, messages: [] }
 		}
+		case CLEAN_FORM:
+			return {
+				...state,
+				login: '',
+				password: '',
+			}
 		case ON_CHANGE_LOGIN:
 			return { ...state, login: action.payload }
 		case ON_CHANGE_PASSWORD:

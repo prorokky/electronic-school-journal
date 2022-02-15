@@ -1,11 +1,10 @@
-import { sentHttp } from '../../helpers'
-
 export const ON_CHANGE_LOGIN = 'on_change_login'
 export const ON_CHANGE_PASSWORD = 'on_change_password'
 export const AUTH_START = 'auth_start'
 export const AUTH_SUCCESS = 'auth_success'
 export const AUTH_FAILED = 'auth_failed'
 export const CLEAR_ERRORS = 'clear_ERRORS'
+export const CLEAR_FORM = 'clear_form'
 export const AUTH = 'auth'
 
 export function onChangeLogin(login: string) {

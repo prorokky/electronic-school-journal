@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Input from '@components/Input'
 import { RootState } from '@store/rootReducer'
@@ -12,6 +12,7 @@ import {
 	onChangePatronymic,
 	onChangeRole,
 	onChangeSubject,
+	CLEAN_FORM,
 } from '@store/userWork/actions'
 import styles from '@styles/AddForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,14 +29,16 @@ const UserWorkInputs: React.FC = () => {
 	const patronymic = useSelector((state: RootState) => state.userWork.patronymic)
 	const cab = useSelector((state: RootState) => state.userWork.cab)
 
+	useEffect(() => {
+		dispatch({
+			type: CLEAN_FORM,
+		})
+	}, [])
+
 	return (
 		<>
 			<div className={styles.validateInput}>
-				<Input
-					value={login}
-					placeholder={'Логин'}
-					onChange={(event) => dispatch(onChangeUserLogin(event))}
-				/>
+				<Input value={login} placeholder={'Логин'} onChange={(event) => dispatch(onChangeUserLogin(event))} />
 			</div>
 			<div className={styles.validateInput}>
 				<Input

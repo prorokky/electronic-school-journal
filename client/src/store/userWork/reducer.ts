@@ -84,6 +84,7 @@ export const userWork = (state = initialState, action: { type: any; payload: any
 			return { ...state, cab: action.payload }
 		case CLEAN_FORM:
 			return {
+				...state,
 				userLogin: '',
 				userPassword: '',
 				role: '',

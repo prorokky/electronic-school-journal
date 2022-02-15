@@ -3,6 +3,7 @@ import React from 'react'
 import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Input from '@components/Input'
+import Loader from '@components/Loader'
 import Textarea from '@components/Textarea'
 import { onChangeText, onChangeHeader, addNews, clearErrors } from '@store/news/actions'
 import { RootState } from '@store/rootReducer'
@@ -23,45 +24,51 @@ const AddNews: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.alertsContainer}>
-				{messages?.map((message, index) => {
-					return (
-						// @ts-ignore
-						<Alert
-							cleanError={() => dispatch(clearErrors())}
-							text={message.message}
-							key={index}
-							isWarning={message.isWarning}
-						/>
-					)
-				})}
-			</div>
-			<div className={styles.formContainer}>
-				<form onSubmit={(event) => addNewsHandler(event)}>
-					<h1 className={styles.formHead}>Добавление новостей</h1>
-					<div className={styles.validateInput}>
-						<Input
-							value={header}
-							placeholder={'Заголовок'}
-							onChange={(event) => dispatch(onChangeHeader(event))}
-						/>
+		<>
+			{isLoading ? (
+				<Loader />
+			) : (
+				<div className={styles.container}>
+					<div className={styles.alertsContainer}>
+						{messages?.map((message, index) => {
+							return (
+								// @ts-ignore
+								<Alert
+									cleanError={() => dispatch(clearErrors())}
+									text={message.message}
+									key={index}
+									isWarning={message.isWarning}
+								/>
+							)
+						})}
 					</div>
-					<div className={styles.validateTextarea}>
-						<Textarea
-							value={text}
-							placeholder={'Что нового?'}
-							onChange={(event) => dispatch(onChangeText(event))}
-						/>
+					<div className={styles.formContainer}>
+						<form onSubmit={(event) => addNewsHandler(event)}>
+							<h1 className={styles.formHead}>Добавление новостей</h1>
+							<div className={styles.validateInput}>
+								<Input
+									value={header}
+									placeholder={'Заголовок'}
+									onChange={(event) => dispatch(onChangeHeader(event))}
+								/>
+							</div>
+							<div className={styles.validateTextarea}>
+								<Textarea
+									value={text}
+									placeholder={'Что нового?'}
+									onChange={(event) => dispatch(onChangeText(event))}
+								/>
+							</div>
+							<div className={styles.button}>
+								<Button isDisabled={isLoading} color={'green'}>
+									добавить
+								</Button>
+							</div>
+						</form>
 					</div>
-					<div className={styles.button}>
-						<Button isDisabled={isLoading} color={'green'}>
-							добавить
-						</Button>
-					</div>
-				</form>
-			</div>
-		</div>
+				</div>
+			)}
+		</>
 	)
 }
 
