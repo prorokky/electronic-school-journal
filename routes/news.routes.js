@@ -11,15 +11,22 @@ router.post('/add_news', [
                 text,
             } = request.body
 
+            const date = new Date()
+            const year = date.getFullYear()
+            const month = date.getMonth()
+            const day = date.getDate()
+
             const news = new News({
                 header,
                 text,
+                date: `${day}.${month}.${year}`,
             })
 
             await news.save()
 
             response.status(201).json([{message: 'Новость добавлена', isWarning: false}])
         } catch (e) {
+            console.log(e)
             response.status(500).json({message: 'Введите корректные данные', isWarning: true})
         }
     }

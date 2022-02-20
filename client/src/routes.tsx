@@ -32,8 +32,8 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/news" exact>
 					<News />
 				</Route>
-				<Redirect to="/news">
-					<News />
+				<Redirect to="/add_news">
+					<AddNews />
 				</Redirect>
 			</Switch>
 		)

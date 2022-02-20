@@ -1,7 +1,7 @@
-export type AddNewsReducer = {
+export type NewsReducer = {
 	header: string
 	text: string
 	messages: object[]
 	isLoading: boolean
-	news: object[]
+	allNews: object[]
 }

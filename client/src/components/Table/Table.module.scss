@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .table {
   width: 80%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -5,7 +7,7 @@
   border-bottom-width: 3px;
   border-collapse: collapse;
   font-size: 15px;
-  color: #333333;
+  color: $text-color;
   background: #bfafe3;
   margin: 10px;
 }

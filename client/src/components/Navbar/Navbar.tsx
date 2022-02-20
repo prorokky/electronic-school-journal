@@ -59,6 +59,11 @@ const Navbar: React.FC = () => {
 							Новости
 						</NavLink>
 					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/add_news`} className={styles.elementText}>
+							Добавить новости
+						</NavLink>
+					</div>
 				</>
 			)
 			break

@@ -2,17 +2,22 @@ import {
 	ON_CHANGE_HEADER,
 	ON_CHANGE_TEXT,
 	ADDING_NEWS_START,
-	ADDING_NEWS_SUCCESS, ADDING_NEWS_FAILED, CLEAR_ERRORS, FETCH_NEWS_STARTED, FETCH_NEWS_SUCCESS, FETCH_NEWS_FAILED,
+	ADDING_NEWS_SUCCESS,
+	ADDING_NEWS_FAILED,
+	CLEAR_ERRORS,
+	FETCH_NEWS_STARTED,
+	FETCH_NEWS_SUCCESS,
+	FETCH_NEWS_FAILED,
 } from '@store/news/actions'
 
-import { AddNewsReducer } from './types'
+import { NewsReducer } from './types'
 
-const initialState: AddNewsReducer = {
+const initialState: NewsReducer = {
 	header: '',
 	text: '',
 	messages: [],
 	isLoading: false,
-	news: [],
+	allNews: [],
 }
 
 export const news = (state = initialState, action: { type: any; payload: any }) => {
@@ -30,20 +35,20 @@ export const news = (state = initialState, action: { type: any; payload: any }) 
 		case FETCH_NEWS_STARTED:
 			return {
 				...state,
-				news: [],
+				allNews: [],
 				isLoading: true,
 				messages: [],
 			}
 		case FETCH_NEWS_SUCCESS:
 			return {
 				...state,
-				news: action.payload,
+				allNews: action.payload,
 				isLoading: false,
 			}
 		case FETCH_NEWS_FAILED:
 			return {
 				...state,
-				news: [],
+				allNews: [],
 				isLoading: false,
 				messages: action.payload,
 			}
