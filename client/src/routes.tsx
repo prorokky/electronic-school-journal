@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
+import { AuthContext } from '@context/AuthContext'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddContact from './App/pages/AddContact'
@@ -11,6 +12,8 @@ import Roles from './App/pages/Roles'
 import User from './App/pages/User'
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
+	const auth = useContext(AuthContext)
+
 	if (isAuthenticated) {
 		return (
 			<Switch>
@@ -32,7 +35,7 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/news" exact>
 					<News />
 				</Route>
-				<Redirect to="/add_news">
+				<Redirect to={`profile/${auth.userId}`}>
 					<AddNews />
 				</Redirect>
 			</Switch>
