@@ -3,13 +3,15 @@ import React, { useCallback } from 'react'
 import styles from './Input.module.scss'
 
 type InputProps = {
-	value: string
+	value?: string
 	placeholder?: string
 	onChange: (value: string) => void
-	isPassword?: boolean
+	inputType?: string
+	accept?: string
+	name?: string
 }
 
-const Input: React.FC<InputProps> = ({ value, placeholder, onChange, isPassword }) => {
+const Input: React.FC<InputProps> = ({ value, placeholder, onChange, inputType = 'text', accept, name }) => {
 	const onChangeInput = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
 			onChange(event.target.value)
@@ -17,14 +19,14 @@ const Input: React.FC<InputProps> = ({ value, placeholder, onChange, isPassword 
 		[onChange]
 	)
 
-	const inputType: string = isPassword ? 'password' : 'text'
-
 	return (
 		<input
 			className={styles.input}
 			value={value}
 			placeholder={placeholder}
 			type={inputType}
+			accept={accept}
+			name={name}
 			onChange={onChangeInput}
 		/>
 	)

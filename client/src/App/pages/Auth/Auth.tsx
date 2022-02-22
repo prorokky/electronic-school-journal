@@ -89,9 +89,9 @@ const Auth: React.FC = () => {
 							<div className={styles.validateInput}>
 								<Input
 									value={password}
+									inputType={'password'}
 									placeholder={'Пароль'}
 									onChange={(event) => dispatch(onChangePassword(event))}
-									isPassword={true}
 								/>
 							</div>
 							<div className={styles.signIn}>

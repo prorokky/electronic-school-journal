@@ -1,4 +1,4 @@
-import { FETCH_DATA_FAILED, FETCH_DATA_START, FETCH_DATA_SUCCESS } from '@store/user/actions'
+import { CLEAR_DATA, FETCH_DATA_FAILED, FETCH_DATA_START, FETCH_DATA_SUCCESS } from '@store/user/actions'
 import { UserReducerState } from '@store/user/types'
 
 const initialState: UserReducerState = {
@@ -14,7 +14,7 @@ export const user = (state = initialState, action: { type: any; payload: any }) 
 			return {
 				user: {},
 				userInfoTable: [],
-				isLoading: true
+				isLoading: true,
 			}
 		case FETCH_DATA_SUCCESS:
 			return {
@@ -27,6 +27,13 @@ export const user = (state = initialState, action: { type: any; payload: any }) 
 			return {
 				...state,
 				messages: action.payload,
+				isLoading: false,
+			}
+		case CLEAR_DATA:
+			return {
+				user: {},
+				messages: [],
+				userInfoTable: [],
 				isLoading: false,
 			}
 		default:

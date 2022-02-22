@@ -44,7 +44,6 @@ const UserWorkInputs: React.FC = () => {
 				<Input
 					value={password}
 					placeholder={'Пароль'}
-					isPassword={true}
 					onChange={(event) => dispatch(onChangeUserPassword(event))}
 				/>
 			</div>

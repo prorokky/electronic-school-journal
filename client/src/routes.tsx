@@ -20,7 +20,7 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/user_work" exact>
 					<User />
 				</Route>
-				<Route path="/profile/:id" exact>
+				<Route path="/profile" exact>
 					<Profile />
 				</Route>
 				<Route path="/add_contact" exact>
@@ -35,7 +35,7 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/news" exact>
 					<News />
 				</Route>
-				<Redirect to={`profile/${auth.userId}`}>
+				<Redirect to="/profile">
 					<AddNews />
 				</Redirect>
 			</Switch>

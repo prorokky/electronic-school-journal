@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.navElement}>
-				<NavLink to={`/profile/${auth.userId}`} className={styles.elementText}>
+				<NavLink to="/profile" className={styles.elementText}>
 					Профиль
 				</NavLink>
 			</div>

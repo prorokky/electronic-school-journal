@@ -5,6 +5,7 @@ import { sentHttp } from '../../helpers'
 export const FETCH_DATA_START = 'fetch_data_start'
 export const FETCH_DATA_SUCCESS = 'fetch_data_success'
 export const FETCH_DATA_FAILED = 'fetch_data_failed'
+export const CLEAR_DATA = 'clear_data'
 
 export function setUser(user: object) {
 	const rows: object[] = []
@@ -51,5 +52,11 @@ export const fetchUserData = (userId, token) => async (dispatch) => {
 			type: FETCH_DATA_FAILED,
 			payload: errors,
 		})
+	}
+}
+
+export const clearData = () => {
+	return {
+		type: CLEAR_DATA,
 	}
 }
