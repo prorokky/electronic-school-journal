@@ -1,11 +1,14 @@
 import {
-	CLEAR_FORM,
+	ADDING_CONTACT_FAILED,
+	ADDING_CONTACT_START,
+	ADDING_CONTACT_SUCCESS,
+	CLEAR_ERRORS,
 	ON_CHANGE_LAST_NAME,
 	ON_CHANGE_MAIL,
 	ON_CHANGE_NAME,
-	ON_CHANGE_PATRONYMIC, ON_CHANGE_PHONE,
-} from '@store/addContact/actions'
-
+	ON_CHANGE_PATRONYMIC,
+	ON_CHANGE_PHONE,
+} from './actions'
 import { AddContactReducer } from './types'
 
 const initialState: AddContactReducer = {
@@ -14,10 +17,26 @@ const initialState: AddContactReducer = {
 	patronymic: '',
 	phone: '',
 	mail: '',
+	messages: [],
+	isLoading: false,
 }
 
 export const addContact = (state = initialState, action: { type: any; payload: any }) => {
 	switch (action.type) {
+		case ADDING_CONTACT_START:
+			return { ...state, messages: [], isLoading: true }
+		case ADDING_CONTACT_SUCCESS:
+			return {
+				name: '',
+				last_name: '',
+				patronymic: '',
+				phone: '',
+				mail: '',
+				messages: action.payload,
+				isLoading: false,
+			}
+		case ADDING_CONTACT_FAILED:
+			return { header: '', text: '', messages: action.payload, isLoading: false }
 		case ON_CHANGE_NAME:
 			return { ...state, name: action.payload }
 		case ON_CHANGE_LAST_NAME:
@@ -28,14 +47,8 @@ export const addContact = (state = initialState, action: { type: any; payload: a
 			return { ...state, phone: action.payload }
 		case ON_CHANGE_MAIL:
 			return { ...state, mail: action.payload }
-		case CLEAR_FORM:
-			return {
-				name: '',
-				last_name: '',
-				patronymic: '',
-				phone: '',
-				mail: ''
-			}
+		case CLEAR_ERRORS:
+			return { ...state, messages: [] }
 		default:
 			return state
 	}

@@ -40,8 +40,8 @@ router.post('/add_user',
 
             if (!errors.isEmpty()) {
                 return response.status(400).json({
-                    errors: errors.array(),
-                    message: 'Некорректные данные при создании пользователя'
+                    message: 'Некорректные данные при создании пользователя',
+                    isWarning: true,
                 })
             }
 
@@ -63,22 +63,22 @@ router.post('/add_user',
             const subjectCandidate = await Subject.findOne({ subject })
 
             if (candidate) {
-                const data = {errors: [{msg: 'Пользователь создан'}]}
+                const data = [{message: 'Пользователь создан', isWarning: false}]
                 return response.status(400).json(data)
             }
 
             if (!roleCandidate) {
-                const data = {errors: [{msg: 'Введите корректную роль'}]}
+                const data = {message: 'Введите корректную роль', isWarning: true}
                 return response.status(400).json(data)
             }
 
             if (!classCandidate) {
-                const data = {errors: [{msg: 'Введите корректный класс'}]}
+                const data = {message: 'Введите корректный класс', isWarning: true}
                 return response.status(400).json(data)
             }
 
             if (!subjectCandidate) {
-                const data = {errors: [{msg: 'Введите корректный предмет'}]}
+                const data = {message: 'Введите корректный предмет', isWarning: true}
                 return response.status(400).json(data)
             }
 
@@ -97,9 +97,9 @@ router.post('/add_user',
 
             await user.save()
 
-            response.status(201).json({message: 'Пользователь создан'})
+            response.status(201).json([{message: 'Пользователь создан', isWarning: false}])
         } catch (e) {
-            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
+            response.status(500).json({message: 'Что-то пошло не так', isWarning: true})
         }
     }
 )
@@ -122,12 +122,13 @@ router.post('/update_user',
             const user = await User.findOne({ login })
             const roleCandidate = await Role.findOne({ role })
             const classCandidate = await Class.findOne({ class_study })
+            const subjectCandidate = await Class.findOne({ subject })
             const updateCandidate = {
                 login,
                 password: user.password,
                 role: roleCandidate,
                 class_study: classCandidate,
-                subject,
+                subject: subjectCandidate,
                 name,
                 last_name,
                 patronymic,
@@ -136,9 +137,10 @@ router.post('/update_user',
 
             const candidate = await User.findByIdAndUpdate(user.id, updateCandidate)
 
-            response.status(201).json({message: 'Пользователь обновлен'})
+            response.status(201).json([{message: 'Пользователь обновлен', isWarning: false}])
         } catch (e) {
-            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
+            console.log(e)
+            response.status(500).json({message: 'Что-то пошло не так', isWarning: true})
         }
     }
 )
@@ -155,8 +157,8 @@ router.post('/delete_user',
 
             if (!errors.isEmpty()) {
                 return response.status(400).json({
-                    errors: errors.array(),
-                    message: 'Некорректные данные при удалении пользователя'
+                    message: 'Неправильно указан логин',
+                    isWarning: true,
                 })
             }
 
@@ -166,9 +168,9 @@ router.post('/delete_user',
 
             await User.deleteOne({ login })
 
-            response.status(201).json({message: 'Пользователь удален'})
+            response.status(201).json([{message: 'Пользователь удален', isWarning: false}])
         } catch (e) {
-            response.status(500).json({errors: [{msg: 'Что-то пошло не так'}]})
+            response.status(500).json({message: 'Что-то пошло не так', isWarning: true})
         }
     }
 )
@@ -191,13 +193,22 @@ router.get('/get_roles', auth, async (request, response) => {
 
         response.json(rolesArray)
     } catch (e) {
-        response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', isWarning: true })
     }
 })
 
-router.post('/add_contact', [
-], async (request, response) => {
+router.post('/add_contact',
+    [
+        check('mail', 'Неправильно указан логин')
+            .isEmail()
+    ],
+    async (request, response) => {
     try {
+        const errors = validationResult(request)
+
+        if (!errors.isEmpty()) {
+            return response.status(400).json({message: 'Введите корректную почту', isWarning: true})
+        }
         const {
             name,
             last_name,
@@ -211,7 +222,7 @@ router.post('/add_contact', [
         const candidatePatronymic = await User.findOne({ patronymic })
 
         if (!candidateName || !candidateLastName || !candidatePatronymic) {
-            const data = {errors: [{msg: 'Введите корректные ФИО'}]}
+            const data = {message: 'Введите корректные ФИО', isWarning: true}
             return response.status(400).json(data)
         }
 
@@ -225,9 +236,9 @@ router.post('/add_contact', [
 
         await contacts.save()
 
-        response.status(201).json({message: 'Контакт создан'})
+        response.status(201).json([{message: 'Контакт создан', isWarning: false}])
     } catch (e) {
-        response.status(500).json({errors: [{msg: 'Введите корректные ФИО'}]})
+        response.status(500).json({message: 'Введите корректные ФИО', isWarning: true})
     }
     }
 )

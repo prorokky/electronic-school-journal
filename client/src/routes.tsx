@@ -1,24 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
+import { AuthContext } from '@context/AuthContext'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddContact from './App/pages/AddContact'
 import AddNews from './App/pages/AddNews'
 import Auth from './App/pages/Auth'
+import News from './App/pages/News'
 import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
 import User from './App/pages/User'
 
-// TODO: редирект в зависимости от роли
-
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
+	const auth = useContext(AuthContext)
+
 	if (isAuthenticated) {
 		return (
 			<Switch>
 				<Route path="/user_work" exact>
 					<User />
 				</Route>
-				<Route path="/profile/:id" exact>
+				<Route path="/profile" exact>
 					<Profile />
 				</Route>
 				<Route path="/add_contact" exact>
@@ -30,8 +32,11 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/roles" exact>
 					<Roles />
 				</Route>
-				<Redirect to="/user_work">
-					<User />
+				<Route path="/news" exact>
+					<News />
+				</Route>
+				<Redirect to="/profile">
+					<AddNews />
 				</Redirect>
 			</Switch>
 		)

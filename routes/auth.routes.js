@@ -10,17 +10,18 @@ const router = Router()
 // /api/auth/login - авторизация пользователя
 router.post('/login',
     [
-        check('password', 'Введите пароль').exists()
+        check('password', 'Введите пароль')
+            .exists()
+            .notEmpty(),
+        check('login', 'Введите логин')
+            .notEmpty()
     ],
     async (request, response) => {
         try {
             const errors = validationResult(request)
 
             if (!errors.isEmpty()) {
-                return response.status(400).json({
-                    errors: errors.array(),
-                    message: 'Некорректные данные при входе в систему'
-                })
+                return response.status(400).json({message: 'Неккоректные данные при входе', isWarning: true})
             }
 
             const { login, password } = request.body
@@ -28,13 +29,13 @@ router.post('/login',
             const user = await User.findOne({ login })
 
             if (!user) {
-                return response.status(400).json({ message: 'Пользователь не найден' })
+                return response.status(400).json({ message: 'Пользователь не найден', isWarning: true })
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
 
             if (!isMatch) {
-                return response.status(400).json({ message: 'Введен неверный логин или пароль' })
+                return response.status(400).json({message: 'Введен неверный логин или пароль', isWarning: true})
             }
 
             const token = jwt.sign(
@@ -45,7 +46,7 @@ router.post('/login',
 
             response.json({ token, userId: user.id })
         } catch (e) {
-            response.status(500).json({message: 'Что-то пошло не так попробуйте снова...'})
+            response.status(500).json({message: 'Что-то пошло не так', isWarning: true})
         }
 })
 

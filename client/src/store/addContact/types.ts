@@ -4,4 +4,6 @@ export type AddContactReducer = {
 	patronymic: string
 	phone: string
 	mail: string
+	messages: object[]
+	isLoading: boolean
 }

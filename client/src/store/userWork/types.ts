@@ -1,4 +1,4 @@
-export type AddUserReducerState = {
+export type UserWorkReducerState = {
 	userLogin: string
 	userPassword: string
 	role: string
@@ -8,4 +8,6 @@ export type AddUserReducerState = {
 	lastName: string
 	patronymic: string
 	cab: string
+	isLoading: boolean
+	messages: object[]
 }

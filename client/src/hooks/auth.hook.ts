@@ -1,10 +1,14 @@
 import { useCallback, useState, useEffect } from 'react'
 
+import { clearData } from '@store/user/actions'
+import { useDispatch } from 'react-redux'
+
 const storageName = 'userData'
 
 export const useAuth = () => {
 	const [token, setToken] = useState(null)
 	const [userId, setUserId] = useState(null)
+	const dispatch = useDispatch()
 
 	const login = useCallback((jwtToken, id) => {
 		setToken(jwtToken)
@@ -22,6 +26,7 @@ export const useAuth = () => {
 	const logout = useCallback(() => {
 		setToken(null)
 		setUserId(null)
+		dispatch(clearData())
 		localStorage.removeItem(storageName)
 	}, [])
 
