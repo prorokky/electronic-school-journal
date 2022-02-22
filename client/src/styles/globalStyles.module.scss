@@ -1,0 +1,13 @@
+@import '@styles/variables.scss';
+
+.container {
+  width: 80%;
+  background: $page-background;
+  border-radius: 5px 5px 0 0;
+  height: 100vh;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}

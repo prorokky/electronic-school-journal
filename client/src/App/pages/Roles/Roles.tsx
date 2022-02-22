@@ -5,6 +5,7 @@ import Table from '@components/Table'
 import { AuthContext } from '@context/AuthContext'
 import { fetchRoles } from '@store/roles/actions'
 import { RootState } from '@store/rootReducer'
+import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Roles.module.scss'
@@ -24,7 +25,7 @@ const Roles: React.FC = () => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<div className={styles.rolesContainer}>
+				<div className={globalStyles.container}>
 					<h1 className={styles.rolesHeader}>Ролевая модель</h1>
 					<div className={styles.rolesInfo}>
 						<Table tableRows={roles} />

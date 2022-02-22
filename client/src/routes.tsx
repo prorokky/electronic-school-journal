@@ -9,6 +9,7 @@ import Auth from './App/pages/Auth'
 import News from './App/pages/News'
 import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
+import StudyMaterial from './App/pages/StudyMaterial'
 import User from './App/pages/User'
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
@@ -34,6 +35,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/news" exact>
 					<News />
+				</Route>
+				<Route path="/study_material" exact>
+					<StudyMaterial />
 				</Route>
 				<Redirect to="/profile">
 					<AddNews />
