@@ -4,12 +4,12 @@ import { AuthContext } from '@context/AuthContext'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import AddContact from './App/pages/AddContact'
+import AddHomework from './App/pages/AddHomework'
 import AddNews from './App/pages/AddNews'
 import Auth from './App/pages/Auth'
 import News from './App/pages/News'
 import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
-import StudyMaterial from './App/pages/StudyMaterial'
 import User from './App/pages/User'
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
@@ -36,8 +36,8 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				<Route path="/news" exact>
 					<News />
 				</Route>
-				<Route path="/study_material" exact>
-					<StudyMaterial />
+				<Route path="/add_homework" exact>
+					<AddHomework />
 				</Route>
 				<Redirect to="/profile">
 					<AddNews />

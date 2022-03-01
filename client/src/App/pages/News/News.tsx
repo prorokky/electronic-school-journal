@@ -6,8 +6,8 @@ import Loader from '@components/Loader'
 import { AuthContext } from '@context/AuthContext'
 import { fetchNews } from '@store/news/actions'
 import { RootState } from '@store/rootReducer'
-import { useDispatch, useSelector } from 'react-redux'
 import globalStyles from '@styles/globalStyles.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './News.module.scss'
 

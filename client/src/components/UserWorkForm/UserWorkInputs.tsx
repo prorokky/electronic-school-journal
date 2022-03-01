@@ -14,7 +14,7 @@ import {
 	onChangeSubject,
 	CLEAN_FORM,
 } from '@store/userWork/actions'
-import styles from '@styles/AddForms.module.scss'
+import styles from '@styles/addForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 const UserWorkInputs: React.FC = () => {

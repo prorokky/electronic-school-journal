@@ -6,7 +6,7 @@ import UserWorkButtons from '@components/UserWorkForm/UserWorkButtons'
 import UserWorkInputs from '@components/UserWorkForm/UserWorkInputs'
 import { RootState } from '@store/rootReducer'
 import { clearErrors } from '@store/userWork/actions'
-import styles from '@styles/AddForms.module.scss'
+import styles from '@styles/addForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 const User: React.FC = () => {

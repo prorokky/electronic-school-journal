@@ -3,7 +3,7 @@ import React from 'react'
 import Button from '@components/Button'
 import { RootState } from '@store/rootReducer'
 import { addUser, deleteUser, updateUser } from '@store/userWork/actions'
-import styles from '@styles/AddForms.module.scss'
+import styles from '@styles/addForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 const UserWorkButtons: React.FC = () => {

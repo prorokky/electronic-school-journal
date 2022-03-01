@@ -13,8 +13,16 @@ router.post('/add_news', [
 
             const date = new Date()
             const year = date.getFullYear()
-            const month = date.getMonth()
-            const day = date.getDate()
+            let month = date.getMonth()
+            let day = date.getDate()
+
+            if (month.length !== 2) {
+                month = '0' + month
+            }
+
+            if (day.length !== 2) {
+                day = '0' + day
+            }
 
             const news = new News({
                 header,

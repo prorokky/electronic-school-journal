@@ -7,7 +7,7 @@ import Loader from '@components/Loader'
 import Textarea from '@components/Textarea'
 import { onChangeText, onChangeHeader, addNews, clearErrors } from '@store/news/actions'
 import { RootState } from '@store/rootReducer'
-import styles from '@styles/AddForms.module.scss'
+import styles from '@styles/addForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 const AddNews: React.FC = () => {

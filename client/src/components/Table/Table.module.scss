@@ -3,23 +3,20 @@
 .table {
   width: 80%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  border: 5px solid #fff;
   border-bottom-width: 3px;
   border-collapse: collapse;
   font-size: 15px;
   color: $text-color;
-  background: #bfafe3;
+  background: rgba(31, 100, 222, 0.46);
   margin: 10px;
 }
 
 .table td {
   padding: 7px;
   border: none;
-  border-top: 3px solid #fff;
-  border-bottom: 3px solid #fff;
   font-size: 15px;
 }
 
 .table tbody tr:nth-child(even){
-  background: rgba(95, 16, 110, 0.3);
+  background: white;
 }

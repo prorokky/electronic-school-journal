@@ -2,8 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: #9053c7;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: white;
     overflow: hidden;
 }
 
