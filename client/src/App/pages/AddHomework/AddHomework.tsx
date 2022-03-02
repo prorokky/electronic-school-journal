@@ -1,17 +1,28 @@
 import React, { useContext, useEffect } from 'react'
 
+import Alert from '@components/Alert'
 import Button from '@components/Button'
-import Input from '@components/Input'
 import Loader from '@components/Loader'
 import Select from '@components/Select'
 import Textarea from '@components/Textarea'
 import { AuthContext } from '@context/AuthContext'
-import { changeClassStudy, changeDateFor, changeDateFrom, changeHomework, fetchClasses } from '@store/homework/actions'
+import {
+	addHomework,
+	changeClassStudy,
+	changeDateFor,
+	changeDateFrom,
+	changeHomework,
+	fetchClasses,
+	clearErrors,
+} from '@store/homework/actions'
 import { RootState } from '@store/rootReducer'
 import formStyles from '@styles/addForms.module.scss'
+import DatePicker from 'react-datepicker'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './AddHomework.module.scss'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 export const AddHomework: React.FC = () => {
 	const dispatch = useDispatch()
@@ -21,6 +32,7 @@ export const AddHomework: React.FC = () => {
 	const isLoading = useSelector((state: RootState) => state.homework.isLoading)
 	const classes = useSelector((state: RootState) => state.homework.classes)
 	const classStudy = useSelector((state: RootState) => state.homework.class_study)
+	const messages = useSelector((state: RootState) => state.homework.messages)
 
 	const auth = useContext(AuthContext)
 
@@ -28,36 +40,40 @@ export const AddHomework: React.FC = () => {
 		dispatch(fetchClasses(auth.userId, auth.token))
 	}, [fetchClasses])
 
+	const handleForm = (event) => {
+		event.preventDefault()
+		dispatch(addHomework())
+	}
+
 	return (
 		<>
 			{isLoading ? (
 				<Loader />
 			) : (
 				<div className={formStyles.container}>
+					<div className={formStyles.alertsContainer}>
+						{messages?.map((message, index) => {
+							return (
+								// @ts-ignore
+								<Alert
+									cleanError={() => dispatch(clearErrors())}
+									text={message.message}
+									key={index}
+									isWarning={message.isWarning}
+								/>
+							)
+						})}
+					</div>
 					<div className={formStyles.formContainer}>
-						<form>
+						<form onSubmit={(event) => handleForm(event)}>
 							<h1 className={formStyles.formHead}>Выдать домашнее задание</h1>
 							<div className={formStyles.validateSelect}>
-								{/* TODO: стилизовать селект и сделать компентом */}
 								<label className={styles.label}>Класс: </label>
 								<Select
 									optionsArray={classes}
 									value={classStudy}
 									onChange={(event) => dispatch(changeClassStudy(event))}
 								/>
-								{/*<select
-									className={styles.select}
-									value={classStudy}
-									onChange={(event) => dispatch(changeClassStudy(event.target.value))}
-								>
-									{classes.map((classItem, index) => {
-										return (
-											<option key={index} value={classItem}>
-												{classItem}
-											</option>
-										)
-									})}
-								</select>*/}
 							</div>
 							<div className={formStyles.validateInput}>
 								<Textarea
@@ -66,18 +82,18 @@ export const AddHomework: React.FC = () => {
 									onChange={(event) => dispatch(changeHomework(event))}
 								/>
 							</div>
-							<div className={formStyles.validateInput}>
-								<Input
-									value={dateFrom}
-									placeholder={'Дата выдачи'}
-									onChange={(event) => dispatch(changeDateFrom(event))}
+							<div className={formStyles.validateDatePicker}>
+								<label className={styles.label}>Дата выдачи: </label>
+								<DatePicker
+									selected={dateFrom}
+									onChange={(date: Date) => dispatch(changeDateFrom(date))}
 								/>
 							</div>
-							<div className={formStyles.validateInput}>
-								<Input
-									value={dateFor}
-									placeholder={'Дата сдачи'}
-									onChange={(event) => dispatch(changeDateFor(event))}
+							<div className={formStyles.validateDatePicker}>
+								<label className={styles.label}>Дата сдачи: </label>
+								<DatePicker
+									selected={dateFor}
+									onChange={(date: Date) => dispatch(changeDateFor(date))}
 								/>
 							</div>
 							<div className={formStyles.button}>
