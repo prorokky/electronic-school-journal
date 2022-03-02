@@ -3,12 +3,15 @@ import React, { useContext, useEffect } from 'react'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import Loader from '@components/Loader'
+import Select from '@components/Select'
 import Textarea from '@components/Textarea'
 import { AuthContext } from '@context/AuthContext'
 import { changeClassStudy, changeDateFor, changeDateFrom, changeHomework, fetchClasses } from '@store/homework/actions'
 import { RootState } from '@store/rootReducer'
 import formStyles from '@styles/addForms.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
+
+import styles from './AddHomework.module.scss'
 
 export const AddHomework: React.FC = () => {
 	const dispatch = useDispatch()
@@ -34,9 +37,16 @@ export const AddHomework: React.FC = () => {
 					<div className={formStyles.formContainer}>
 						<form>
 							<h1 className={formStyles.formHead}>Выдать домашнее задание</h1>
-							<div className={formStyles.validateInput}>
+							<div className={formStyles.validateSelect}>
 								{/* TODO: стилизовать селект и сделать компентом */}
-								<select
+								<label className={styles.label}>Класс: </label>
+								<Select
+									optionsArray={classes}
+									value={classStudy}
+									onChange={(event) => dispatch(changeClassStudy(event))}
+								/>
+								{/*<select
+									className={styles.select}
 									value={classStudy}
 									onChange={(event) => dispatch(changeClassStudy(event.target.value))}
 								>
@@ -47,7 +57,7 @@ export const AddHomework: React.FC = () => {
 											</option>
 										)
 									})}
-								</select>
+								</select>*/}
 							</div>
 							<div className={formStyles.validateInput}>
 								<Textarea
