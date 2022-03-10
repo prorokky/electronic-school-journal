@@ -7,6 +7,7 @@ import AddContact from './App/pages/AddContact'
 import AddHomework from './App/pages/AddHomework'
 import AddNews from './App/pages/AddNews'
 import Auth from './App/pages/Auth'
+import Marks from './App/pages/Marks'
 import News from './App/pages/News'
 import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
@@ -38,6 +39,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/add_homework" exact>
 					<AddHomework />
+				</Route>
+				<Route path="/marks" exact>
+					<Marks />
 				</Route>
 				<Redirect to="/profile">
 					<AddNews />

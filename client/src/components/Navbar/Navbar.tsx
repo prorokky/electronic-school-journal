@@ -60,6 +60,11 @@ const Navbar: React.FC = () => {
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>
+						<NavLink to={`/marks`} className={styles.elementText}>
+							Оценки
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
 						<NavLink to={`/news`} className={styles.elementText}>
 							Новости
 						</NavLink>

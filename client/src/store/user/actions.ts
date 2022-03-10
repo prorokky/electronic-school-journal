@@ -11,16 +11,19 @@ export function setUser(user: object) {
 	const rows: object[] = []
 
 	for (let key in user) {
-		let row = [
-			{
-				value: key,
-			},
-			{
-				value: user[key],
-			},
-		]
+		if (key !== 'classes') {
 
-		rows.push(row)
+			let row = [
+				{
+					value: key,
+				},
+				{
+					value: user[key],
+				},
+			]
+
+			rows.push(row)
+		}
 	}
 	const payload = {
 		rows,
