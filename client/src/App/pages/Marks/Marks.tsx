@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import AllMarks from '@components/AllMarks'
 import Select from '@components/Select'
 import { onChangeClass } from '@store/marks/actions'
 import { RootState } from '@store/rootReducer'
@@ -7,6 +8,7 @@ import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Marks.module.scss'
+import AddMark from "@components/AddMark";
 
 const Marks: React.FC = () => {
 	const dispatch = useDispatch()
@@ -27,13 +29,27 @@ const Marks: React.FC = () => {
 						onChange={(event) => dispatch(onChangeClass(event))}
 					/>
 				</div>
-				<h2 className={styles.functionText} onClick={() => setShowAllMarks(!showAllMarks)}>
+				<h2
+					className={styles.functionText}
+					onClick={() => {
+						setShowAddMark(false)
+						setShowAllMarks(true)
+					}}
+				>
 					Показать все оценки
 				</h2>
-				<h2 className={styles.functionText} onClick={() => setShowAddMark(!showAddMark)}>
+				<h2
+					className={styles.functionText}
+					onClick={() => {
+						setShowAllMarks(false)
+						setShowAddMark(true)
+					}}
+				>
 					Выставить оценки
 				</h2>
 			</div>
+			{chosenClass !== '' && showAllMarks && <AllMarks />}
+			{chosenClass !== '' && showAddMark && <AddMark />}
 		</div>
 	)
 }
