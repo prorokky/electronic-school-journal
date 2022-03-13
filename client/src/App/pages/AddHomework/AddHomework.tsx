@@ -86,6 +86,7 @@ export const AddHomework: React.FC = () => {
 								<label className={styles.label}>Дата выдачи: </label>
 								<DatePicker
 									selected={dateFrom}
+									dateFormat={'dd.MM.yyyy'}
 									onChange={(date: Date) => dispatch(changeDateFrom(date))}
 								/>
 							</div>
@@ -93,6 +94,7 @@ export const AddHomework: React.FC = () => {
 								<label className={styles.label}>Дата сдачи: </label>
 								<DatePicker
 									selected={dateFor}
+									dateFormat={'dd.MM.yyyy'}
 									onChange={(date: Date) => dispatch(changeDateFor(date))}
 								/>
 							</div>

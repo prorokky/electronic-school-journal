@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
+import AddMark from '@components/AddMark'
 import AllMarks from '@components/AllMarks'
 import Select from '@components/Select'
-import { onChangeClass } from '@store/marks/actions'
+import {fetchStudents, onChangeClass} from '@store/marks/actions'
 import { RootState } from '@store/rootReducer'
 import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Marks.module.scss'
-import AddMark from "@components/AddMark";
 
 const Marks: React.FC = () => {
 	const dispatch = useDispatch()

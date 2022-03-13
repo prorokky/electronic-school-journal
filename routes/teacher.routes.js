@@ -1,8 +1,10 @@
-const {Router} = require("express");
+const {Router, request, response} = require("express");
 const auth = require("../middleware/auth.middleware")
 const Homework = require('../models/Homework')
 const Class = require("../models/Class")
-const Subject = require("../models/Subject");
+const Subject = require("../models/Subject")
+const User = require("../models/User")
+const Mark = require("../models/Mark")
 const router = Router()
 
 router.get('/classes', auth, async (request, response) => {
@@ -23,6 +25,69 @@ router.get('/classes', auth, async (request, response) => {
     }
 })
 
+router.post('/get_students', [], async (request, response) => {
+    try {
+        const { class_study } = request.body
+        const data = []
+        const users = await User.find()
+
+        for (let i = 0; i < users.length; i ++) {
+            const className = await Class.findOne({ _id: users[i].class_study })
+            if (className && (className.class_study === class_study)) {
+                data.push( `${users[i].last_name} ${users[i].name} ${users[i].patronymic}`)
+            }
+        }
+
+        response.json(data)
+    } catch (e) {
+        console.log(e)
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
+    }
+})
+
+router.post('/add_mark', [
+], async (request, response) => {
+    try {
+        const {
+            fio,
+            mark,
+            markDate,
+            markType,
+            classStudy,
+            subject,
+        } = request.body
+
+        const studentFio = fio.split(' ')
+        const classCandidate = await Class.findOne({ class_study: classStudy })
+        const subjectCandidate = await Subject.findOne({ subject })
+        const student = await User.findOne({ name: studentFio[1], last_name: studentFio[0], class_study: classCandidate })
+
+        if (mark > 5 || mark < 2) {
+            response.status(500).json({message: 'Введите корректные данные', isWarning: true})
+        }
+
+        const year = markDate.slice(0, 4)
+        const month = markDate.slice(5, 7)
+        const day = markDate.slice(8, 10)
+
+        const newMark = new Mark ({
+            user: student._id,
+            mark,
+            mark_type: markType,
+            mark_date: `${day}.${month}.${year}`,
+            class_study: classCandidate,
+            subject: subjectCandidate,
+        })
+
+        await newMark.save()
+
+        response.status(201).json([{message: 'Оценка добавлена', isWarning: false}])
+
+    } catch (e) {
+        response.status(500).json({message: 'Введите корректные данные', isWarning: true})
+    }
+})
+
 router.post('/add_homework', [
     ], async (request, response) => {
         try {
@@ -33,8 +98,6 @@ router.post('/add_homework', [
                 class_study,
                 subject
             } = request.body
-
-            console.log(date_from)
 
             const yearFrom = date_from.slice(0, 4)
             const monthFrom = date_from.slice(5, 7)
@@ -67,9 +130,8 @@ router.post('/add_homework', [
 
             await work.save()
 
-            response.status(201).json([{message: 'Новость добавлена', isWarning: false}])
+            response.status(201).json([{message: 'Задание добавлено', isWarning: false}])
         } catch (e) {
-            console.log(e)
             response.status(500).json({message: 'Введите корректные данные', isWarning: true})
         }
     }
