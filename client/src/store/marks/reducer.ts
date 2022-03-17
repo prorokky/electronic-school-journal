@@ -6,7 +6,11 @@ import {
 	CHANGE_DATE,
 	CHANGE_MARK,
 	CHANGE_MARK_TYPE,
-	CHANGE_STUDENT, CLEAR_ERRORS,
+	CHANGE_STUDENT,
+	CLEAR_ERRORS,
+	FETCH_MARKS_FAILED,
+	FETCH_MARKS_STARTED,
+	FETCH_MARKS_SUCCESS,
 	FETCH_STUDENTS_FAILED,
 	FETCH_STUDENTS_START,
 	FETCH_STUDENTS_SUCCESS,
@@ -22,6 +26,7 @@ const initialState: MarksReducerState = {
 	markDate: new Date(),
 	mark: '',
 	markType: '',
+	marksTable: [],
 }
 
 export const marks = (state = initialState, action: { type: any; payload: any }) => {
@@ -65,6 +70,25 @@ export const marks = (state = initialState, action: { type: any; payload: any })
 				students: action.payload,
 			}
 		case FETCH_STUDENTS_FAILED:
+			return {
+				...state,
+				isLoading: false,
+				messages: action.payload,
+			}
+		case FETCH_MARKS_STARTED:
+			return {
+				...state,
+				isLoading: true,
+				messages: [],
+				marksTable: [],
+			}
+		case FETCH_MARKS_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				marksTable: action.payload,
+			}
+		case FETCH_MARKS_FAILED:
 			return {
 				...state,
 				isLoading: false,

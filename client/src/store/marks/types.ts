@@ -7,4 +7,5 @@ export type MarksReducerState = {
 	markDate: Date
 	mark: string
 	markType: string
+	marksTable: Array<Array<object>>
 }

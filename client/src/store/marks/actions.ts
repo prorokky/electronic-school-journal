@@ -14,6 +14,9 @@ export const FETCH_STUDENTS_FAILED = 'fetch_student_failed'
 export const ADD_MARK_STARTED = 'add_mark_started'
 export const ADD_MARK_SUCCESS = 'add_mark_success'
 export const ADD_MARK_FAILED = 'add_mark_failed'
+export const FETCH_MARKS_STARTED = 'fetch_marks_started'
+export const FETCH_MARKS_SUCCESS = 'fetch_marks_success'
+export const FETCH_MARKS_FAILED = 'fetch_marks_failed'
 
 export const onChangeClass = (chosenClass: string) => (dispatch) => {
 	dispatch({
@@ -112,3 +115,25 @@ export const clearErrors = () => (dispatch) => {
 	})
 }
 
+export const fetchClassMarks = () => async (dispatch, getState) => {
+	dispatch({
+		type: FETCH_MARKS_STARTED,
+	})
+
+	const { request, errors } = sentHttp()
+	const { marks } = getState()
+	const class_study = marks.chosenClass
+
+	try {
+		const data = await request('/api/teacher/get_marks', 'POST', { class_study })
+		dispatch({
+			type: FETCH_MARKS_SUCCESS,
+			payload: data,
+		})
+	} catch (e) {
+		dispatch({
+			type: FETCH_MARKS_FAILED,
+			payload: errors
+		})
+	}
+}

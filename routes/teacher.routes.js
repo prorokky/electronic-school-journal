@@ -88,6 +88,74 @@ router.post('/add_mark', [
     }
 })
 
+router.post('/get_marks', [
+], async (request, response) => {
+    try {
+        const { class_study } = request.body
+        const allMarks = await Mark.find()
+        const data = [] // данные с оценками
+        const students = [] // список всех студентов
+        const studentsFio = [] // список фио студентов
+        const marksDates = [] // даты оценок
+        const usedStudents = [] // список студентов, которые уже использовались
+
+        for (let i = 0; i < allMarks.length; i++) {
+            const className = await Class.findOne({ _id: allMarks[i].class_study })
+            if (className && (className.class_study === class_study)) {
+                marksDates.push(allMarks[i].mark_date)
+                const fio = await User.findOne({ _id: allMarks[i].user }) // достаем пользователя
+                studentsFio.push(`${fio.last_name} ${fio.name} ${fio.patronymic}`)
+                students.push({
+                    student: allMarks[i].user,
+                    mark: allMarks[i].mark,
+                    markDate: allMarks[i].mark_date,
+                    markType: allMarks[i].mark_type,
+                })
+            }
+        }
+
+        marksDates.sort()
+
+        filteredMarksDates = marksDates.filter((item, pos) => {
+            return marksDates.indexOf(item) === pos
+        })
+
+        console.log(filteredMarksDates)
+
+        filteredStudentsFio = studentsFio.filter((item, pos) => {
+            return studentsFio.indexOf(item) === pos
+        })
+
+        for (let i = 0; i < filteredStudentsFio.length; i++) {
+            const studentData = []
+            studentData.push({value: filteredStudentsFio[i]})
+            for (let k = 0; k < filteredMarksDates.length; k++) {
+                let hasMark = false
+                for (let j = 0; j < students.length; j++) {
+                    const fio = await User.findOne({ _id: students[j].student })
+                    const studentFio = `${fio.last_name} ${fio.name} ${fio.patronymic}`
+                    if (studentFio === filteredStudentsFio[i]) {
+                        if (students[j].markDate === filteredMarksDates[k]) {
+                            studentData.push({ value: students[j].mark })
+                            hasMark = true
+                        }
+                    }
+                }
+                if (!hasMark) {
+                    studentData.push({value: ''})
+                }
+            }
+
+            data.push(studentData)
+        }
+
+        response.json(data)
+    } catch (e) {
+        console.log(e)
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
+    }
+})
+
 router.post('/add_homework', [
     ], async (request, response) => {
         try {
