@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 import AddMark from '@components/AddMark'
 import AllMarks from '@components/AllMarks'
+import Loader from '@components/Loader'
 import Select from '@components/Select'
-import {fetchStudents, onChangeClass} from '@store/marks/actions'
+import { fetchStudents, onChangeClass } from '@store/marks/actions'
 import { RootState } from '@store/rootReducer'
 import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +18,7 @@ const Marks: React.FC = () => {
 
 	const classes = useSelector((state: RootState) => state.user.user.classes)
 	const chosenClass = useSelector((state: RootState) => state.marks.chosenClass)
+	const isLoading = useSelector((state: RootState) => state.marks.isLoading)
 
 	return (
 		<div className={globalStyles.container}>

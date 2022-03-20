@@ -13,7 +13,7 @@ app.use('/api/profile', require('./routes/profile.routes'))
 app.use('/api/news', require('./routes/news.routes'))
 app.use('/api/teacher', require('./routes/teacher.routes'))
 
-const PORT = config.get('port') || 5000
+const PORT = config.get('port') || 8000
 
 async function start() {
     try {

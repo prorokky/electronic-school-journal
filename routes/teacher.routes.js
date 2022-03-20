@@ -120,11 +120,17 @@ router.post('/get_marks', [
             return marksDates.indexOf(item) === pos
         })
 
-        console.log(filteredMarksDates)
-
         filteredStudentsFio = studentsFio.filter((item, pos) => {
             return studentsFio.indexOf(item) === pos
         })
+
+        const marksDatedRow = [{ value: 'ФИО' }]
+
+        for (let i = 0; i < filteredMarksDates.length; i++) {
+            marksDatedRow.push({value: filteredMarksDates[i]})
+        }
+
+        data.push(marksDatedRow)
 
         for (let i = 0; i < filteredStudentsFio.length; i++) {
             const studentData = []
@@ -148,6 +154,7 @@ router.post('/get_marks', [
 
             data.push(studentData)
         }
+
 
         response.json(data)
     } catch (e) {

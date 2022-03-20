@@ -4,14 +4,15 @@ import TableCell from '@components/Table/TableCell'
 
 type TableRowProps = {
 	row: Array<object>
+	checkNull: boolean
 }
 
-export const TableRow: React.FC<TableRowProps> = ({ row }) => {
+export const TableRow: React.FC<TableRowProps> = ({ row, checkNull = true }) => {
 	let isNullRow: boolean = false
 
 	row.map((cell) => {
 		// @ts-ignore
-		if (cell.value === '') {
+		if (cell.value === '' && checkNull) {
 			isNullRow = true
 		}
 	})
@@ -19,7 +20,7 @@ export const TableRow: React.FC<TableRowProps> = ({ row }) => {
 	return (
 		<tr>
 			{row.map((cell, index) => {
-				if (!isNullRow) return <TableCell cell={cell} key={index} />
+				return !isNullRow && <TableCell cell={cell} key={index} />
 			})}
 		</tr>
 	)
