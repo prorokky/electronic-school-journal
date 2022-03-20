@@ -1,8 +1,5 @@
 import React from 'react'
 
-import { RootState } from '@store/rootReducer'
-import { useSelector } from 'react-redux'
-
 type TableCellProps = {
 	cell: object
 }

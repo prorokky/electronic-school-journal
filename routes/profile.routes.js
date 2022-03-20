@@ -13,6 +13,13 @@ router.get('/:id', auth, async (request, response) => {
         const role = await Role.findById(user.role)
         const class_study = await Class.findById(user.class_study)
         const subject = await Subject.findById(user.subject)
+        const classes = await Class.find()
+
+        const classes_data = []
+
+        classes.forEach(({ class_study }) => {
+            classes_data.push(class_study)
+        })
 
         let class_study_name, subject_name
 
@@ -32,7 +39,8 @@ router.get('/:id', auth, async (request, response) => {
             role: role.role,
             subject: subject_name,
             cab: user.cab,
-            class_study: class_study_name
+            class_study: class_study_name,
+            classes: classes_data.sort(),
         }
 
         response.json(userData)

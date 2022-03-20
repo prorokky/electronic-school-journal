@@ -55,6 +55,16 @@ const Navbar: React.FC = () => {
 			navbarElements = (
 				<>
 					<div className={styles.navElement}>
+						<NavLink to={`/add_homework`} className={styles.elementText}>
+							Выдать домашнее задание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/marks`} className={styles.elementText}>
+							Оценки
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
 						<NavLink to={`/news`} className={styles.elementText}>
 							Новости
 						</NavLink>

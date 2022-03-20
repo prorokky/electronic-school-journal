@@ -4,6 +4,7 @@ import Loader from '@components/Loader'
 import Table from '@components/Table'
 import { AuthContext } from '@context/AuthContext'
 import { RootState } from '@store/rootReducer'
+import globalStyles from '@styles/globalStyles.module.scss'
 import { useSelector } from 'react-redux'
 
 import styles from './Profile.module.scss'
@@ -18,7 +19,7 @@ const Profile: React.FC = () => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<div className={styles.profileContainer}>
+				<div className={globalStyles.container}>
 					<h1 className={styles.profileHeader}>Личные данные</h1>
 					<div className={styles.profileInfo}>
 						<Table tableRows={userInfoTable} />

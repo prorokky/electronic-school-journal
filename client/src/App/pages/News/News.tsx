@@ -6,6 +6,7 @@ import Loader from '@components/Loader'
 import { AuthContext } from '@context/AuthContext'
 import { fetchNews } from '@store/news/actions'
 import { RootState } from '@store/rootReducer'
+import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './News.module.scss'
@@ -25,7 +26,7 @@ const News: React.FC = () => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<div className={styles.newsContainer}>
+				<div className={globalStyles.container}>
 					{allNews?.map((newsItem, index) => {
 						return (
 							<div key={index} className={styles.newsContent}>
