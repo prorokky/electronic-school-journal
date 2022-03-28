@@ -1,0 +1,33 @@
+@import '@styles/variables.scss';
+
+.label {
+  font-size: 20px;
+  color: $text-color;
+  width: 50%;
+}
+
+.scheduleForm {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputLessons {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.validateInput {
+  position: relative;
+  width: 75%;
+  margin-bottom: 10px;
+}
+
+.lessonsHeader {
+  margin-right: 10px;
+}

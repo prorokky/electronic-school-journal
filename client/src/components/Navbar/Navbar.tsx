@@ -39,6 +39,11 @@ const Navbar: React.FC = () => {
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>
+						<NavLink to={`/add_schedule`} className={styles.elementText}>
+							Добавить расписание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
 						<NavLink to={`/add_news`} className={styles.elementText}>
 							Добавить новости
 						</NavLink>
