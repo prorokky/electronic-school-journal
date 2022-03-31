@@ -1,32 +1,73 @@
-import React, { useState } from 'react'
+import React from 'react'
 
+import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import Select from '@components/Select'
 import { RootState } from '@store/rootReducer'
+import {
+	addSchedule,
+	clearErrors,
+	onChangeClass,
+	onChangeFridayLessons,
+	onChangeMondayLessons,
+	onChangeSaturdayLessons,
+	onChangeThursdayLessons,
+	onChangeTuesdayLessons,
+	onChangeWednesdayLessons,
+} from '@store/schedule/actions'
 import formStyles from '@styles/addForms.module.scss'
 import globalStyles from '@styles/globalStyles.module.scss'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styles from './Schedule.module.scss'
 
 const Schedule: React.FC = () => {
+	const dispatch = useDispatch()
 	const classes = useSelector((state: RootState) => state.user.user.classes)
-	const [chosenClass, setChosenClass] = useState<string>(classes[0])
-	const [mondayLessons, setMondayLessons] = useState<string>('')
-	const [tuesdayLessons, setTuesdayLessons] = useState<string>('')
-	const [wednesdayLessons, setWednesdayLessons] = useState<string>('')
-	const [thursdayLessons, setThursdayLessons] = useState<string>('')
-	const [fridayLessons, setFridayLessons] = useState<string>('')
-	const [saturdayLessons, setSaturdayLessons] = useState<string>('')
-	const [isLoading, setLoading] = useState<boolean>(false)
+	const mondayLessons = useSelector((state: RootState) => state.schedule.mondayLessons)
+	const tuesdayLessons = useSelector((state: RootState) => state.schedule.tuesdayLessons)
+	const wednesdayLessons = useSelector((state: RootState) => state.schedule.wednesdayLessons)
+	const thursdayLessons = useSelector((state: RootState) => state.schedule.thursdayLessons)
+	const fridayLessons = useSelector((state: RootState) => state.schedule.fridayLessons)
+	const saturdayLessons = useSelector((state: RootState) => state.schedule.saturdayLessons)
+	const chosenClass = useSelector((state: RootState) => state.schedule.chosenClass)
+	const isLoading = useSelector((state: RootState) => state.schedule.isLoading)
+	const messages = useSelector((state: RootState) => state.schedule.messages)
+
+	const handleForm = (event) => {
+		event.preventDefault()
+		dispatch(
+			addSchedule(
+				[mondayLessons, tuesdayLessons, wednesdayLessons, thursdayLessons, fridayLessons, saturdayLessons],
+				chosenClass
+			)
+		)
+	}
 
 	return (
 		<div className={globalStyles.container}>
-			<form className={styles.scheduleForm} onSubmit={(event) => console.log(event)}>
+			<div className={formStyles.alertsContainer}>
+				{messages?.map((message, index) => {
+					return (
+						// @ts-ignore
+						<Alert
+							cleanError={() => dispatch(clearErrors())}
+							text={message.message}
+							key={index}
+							isWarning={message.isWarning}
+						/>
+					)
+				})}
+			</div>
+			<form className={styles.scheduleForm} onSubmit={(event) => handleForm(event)}>
 				<div className={formStyles.validateSelect}>
 					<label className={styles.label}>Класс обучения: </label>
-					<Select optionsArray={classes} value={chosenClass} onChange={(event) => setChosenClass(event)} />
+					<Select
+						optionsArray={classes}
+						value={chosenClass}
+						onChange={(event) => dispatch(onChangeClass(event))}
+					/>
 				</div>
 				<div className={styles.inputLessons}>
 					<h2 className={styles.lessonsHeader}>Понедельник</h2>
@@ -34,7 +75,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={mondayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setMondayLessons(event)}
+							onChange={(event) => dispatch(onChangeMondayLessons(event))}
 						/>
 					</div>
 				</div>
@@ -44,7 +85,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={tuesdayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setTuesdayLessons(event)}
+							onChange={(event) => dispatch(onChangeTuesdayLessons(event))}
 						/>
 					</div>
 				</div>
@@ -54,7 +95,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={wednesdayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setWednesdayLessons(event)}
+							onChange={(event) => dispatch(onChangeWednesdayLessons(event))}
 						/>
 					</div>
 				</div>
@@ -64,7 +105,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={thursdayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setThursdayLessons(event)}
+							onChange={(event) => dispatch(onChangeThursdayLessons(event))}
 						/>
 					</div>
 				</div>
@@ -74,7 +115,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={fridayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setFridayLessons(event)}
+							onChange={(event) => dispatch(onChangeFridayLessons(event))}
 						/>
 					</div>
 				</div>
@@ -84,7 +125,7 @@ const Schedule: React.FC = () => {
 						<Input
 							value={saturdayLessons}
 							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => setSaturdayLessons(event)}
+							onChange={(event) => dispatch(onChangeSaturdayLessons(event))}
 						/>
 					</div>
 				</div>

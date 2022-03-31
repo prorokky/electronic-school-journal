@@ -15,7 +15,13 @@ const Button: React.FC<ButtonProps> = ({ children, onClick, isDisabled = false, 
 	return (
 		<button
 			className={clsx(
-				color === 'green' ? styles.buttonGreen : color === 'red' ? styles.buttonRed : styles.buttonBlue
+				isDisabled
+					? styles.disabled
+					: color === 'green'
+					? styles.buttonGreen
+					: color === 'red'
+					? styles.buttonRed
+					: styles.buttonBlue
 			)}
 			onClick={onClick}
 			disabled={isDisabled}
