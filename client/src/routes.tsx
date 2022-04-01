@@ -11,8 +11,9 @@ import Marks from './App/pages/Marks'
 import News from './App/pages/News'
 import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
+import Schedule from './App/pages/Schedule'
+import ShowClassMarks from './App/pages/ShowClassMarks'
 import User from './App/pages/User'
-import Schedule from "./App/pages/Schedule";
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 	const auth = useContext(AuthContext)
@@ -43,6 +44,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/marks" exact>
 					<Marks />
+				</Route>
+				<Route path="/class_marks" exact>
+					<ShowClassMarks />
 				</Route>
 				<Route path="/add_schedule" exact>
 					<Schedule />

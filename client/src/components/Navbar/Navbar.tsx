@@ -82,6 +82,27 @@ const Navbar: React.FC = () => {
 				</>
 			)
 			break
+		case 'Классный руководитель':
+			navbarElements = (
+				<>
+					<div className={styles.navElement}>
+						<NavLink to={`/class_marks`} className={styles.elementText}>
+							Оценки
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/news`} className={styles.elementText}>
+							Новости
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/add_news`} className={styles.elementText}>
+							Добавить новости
+						</NavLink>
+					</div>
+				</>
+			)
+			break
 	}
 
 	return (
