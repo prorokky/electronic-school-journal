@@ -25,6 +25,24 @@ router.get('/classes', auth, async (request, response) => {
     }
 })
 
+router.get('/subjects', auth, async (request, response) => {
+    try {
+        const subjects = await Subject.find()
+
+        const data = []
+
+        subjects.map((classItem) => {
+            data.push(classItem.subject)
+        })
+
+        data.sort()
+
+        response.json(data)
+    } catch (e) {
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
+    }
+})
+
 router.post('/get_students', [], async (request, response) => {
     try {
         const { class_study } = request.body
@@ -158,7 +176,6 @@ router.post('/get_marks', [
 
         response.json(data)
     } catch (e) {
-        console.log(e)
         response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
     }
 })

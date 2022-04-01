@@ -115,17 +115,15 @@ export const clearErrors = () => (dispatch) => {
 	})
 }
 
-export const fetchClassMarks = () => async (dispatch, getState) => {
+export const fetchClassMarks = (classStudy) => async (dispatch) => {
 	dispatch({
 		type: FETCH_MARKS_STARTED,
 	})
 
 	const { request, errors } = sentHttp()
-	const { marks } = getState()
-	const class_study = marks.chosenClass
 
 	try {
-		const data = await request('/api/teacher/get_marks', 'POST', { class_study })
+		const data = await request('/api/teacher/get_marks', 'POST', { class_study: classStudy})
 		dispatch({
 			type: FETCH_MARKS_SUCCESS,
 			payload: data,
