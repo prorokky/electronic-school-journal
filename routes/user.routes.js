@@ -243,4 +243,42 @@ router.post('/add_contact',
     }
 )
 
+router.get('/get_contacts', auth, async (request, response) => {
+    try {
+        const contacts = await Contact.find()
+        const data = [
+            [{ value: 'Фамилия' },
+            { value: 'Имя' },
+            { value: 'Отчество' },
+            { value: 'Предмет' },
+            { value: 'Телефон' },
+            { value: 'Почта' }]
+        ] // массив возвращаемых значений
+
+        for (let i = 0; i < contacts.length; i++) {
+            const tableRow = [] // массив строк с 1 контактом
+            const candidate = await User.findOne({ _id: contacts[i].name })
+            const subject = await Subject.findOne({ _id: candidate.subject })
+            if (!candidate || !subject) {
+                const data = {message: 'Что-то пошло не так', isWarning: true}
+                return response.status(400).json(data)
+            } else {
+                tableRow.push(
+                    {value: candidate.last_name},
+                    {value: candidate.name},
+                    {value: candidate.patronymic},
+                    {value: subject.subject},
+                    {value: contacts[i].phone},
+                    {value: contacts[i].mail},
+                )
+                data.push(tableRow)
+            }
+        }
+
+        response.json(data)
+    } catch (e) {
+        response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', isWarning: true })
+    }
+})
+
 module.exports = router

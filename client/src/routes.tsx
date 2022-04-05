@@ -7,6 +7,7 @@ import AddContact from './App/pages/AddContact'
 import AddHomework from './App/pages/AddHomework'
 import AddNews from './App/pages/AddNews'
 import Auth from './App/pages/Auth'
+import Contacts from './App/pages/Contacts'
 import Marks from './App/pages/Marks'
 import News from './App/pages/News'
 import Profile from './App/pages/Profile'
@@ -50,6 +51,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/add_schedule" exact>
 					<Schedule />
+				</Route>
+				<Route path="/contacts" exact>
+					<Contacts />
 				</Route>
 				<Redirect to="/profile">
 					<AddNews />
