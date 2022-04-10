@@ -115,15 +115,21 @@ export const clearErrors = () => (dispatch) => {
 	})
 }
 
-export const fetchClassMarks = (classStudy) => async (dispatch) => {
+export const fetchClassMarks = (classStudy, subect?: string) => async (dispatch, getState) => {
 	dispatch({
 		type: FETCH_MARKS_STARTED,
 	})
 
 	const { request, errors } = sentHttp()
+	const { user } = getState()
+
+	const payload: object = {
+		class_study: classStudy,
+		subject: subect ? subect : user.user.subject,
+	}
 
 	try {
-		const data = await request('/api/teacher/get_marks', 'POST', { class_study: classStudy})
+		const data = await request('/api/teacher/get_marks', 'POST', { ...payload })
 		dispatch({
 			type: FETCH_MARKS_SUCCESS,
 			payload: data,
@@ -131,7 +137,7 @@ export const fetchClassMarks = (classStudy) => async (dispatch) => {
 	} catch (e) {
 		dispatch({
 			type: FETCH_MARKS_FAILED,
-			payload: errors
+			payload: errors,
 		})
 	}
 }

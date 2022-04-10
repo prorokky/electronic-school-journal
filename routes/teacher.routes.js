@@ -5,6 +5,7 @@ const Class = require("../models/Class")
 const Subject = require("../models/Subject")
 const User = require("../models/User")
 const Mark = require("../models/Mark")
+const Role = require("../models/Role")
 const router = Router()
 
 router.get('/classes', auth, async (request, response) => {
@@ -51,7 +52,12 @@ router.post('/get_students', [], async (request, response) => {
 
         for (let i = 0; i < users.length; i ++) {
             const className = await Class.findOne({ _id: users[i].class_study })
-            if (className && (className.class_study === class_study)) {
+            const roleName = await Role.findOne({ _id: users[i].role })
+            if (className &&
+                (className.class_study === class_study) &&
+                (roleName.role !== 'Классный руководитель') &&
+                (roleName.role !== 'Родитель')
+            ) {
                 data.push( `${users[i].last_name} ${users[i].name} ${users[i].patronymic}`)
             }
         }
@@ -109,17 +115,20 @@ router.post('/add_mark', [
 router.post('/get_marks', [
 ], async (request, response) => {
     try {
-        const { class_study } = request.body
+        const { class_study, subject } = request.body
         const allMarks = await Mark.find()
-        const data = [] // данные с оценками
-        const students = [] // список всех студентов
-        const studentsFio = [] // список фио студентов
+        const data = [] // данные для ответа на фронт
+        const students = [] // список всех данных об оценке
+        const studentsFio = [] // список фио студентов из текущего класса
         const marksDates = [] // даты оценок
-        const usedStudents = [] // список студентов, которые уже использовались
 
         for (let i = 0; i < allMarks.length; i++) {
             const className = await Class.findOne({ _id: allMarks[i].class_study })
-            if (className && (className.class_study === class_study)) {
+            const subjectName = await Subject.findOne({ _id: allMarks[i].subject })
+            if (className &&
+                (className.class_study === class_study) &&
+                (subjectName.subject === subject)
+            ) {
                 marksDates.push(allMarks[i].mark_date)
                 const fio = await User.findOne({ _id: allMarks[i].user }) // достаем пользователя
                 studentsFio.push(`${fio.last_name} ${fio.name} ${fio.patronymic}`)
@@ -172,7 +181,6 @@ router.post('/get_marks', [
 
             data.push(studentData)
         }
-
 
         response.json(data)
     } catch (e) {

@@ -112,6 +112,11 @@ const Navbar: React.FC = () => {
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>
+						<NavLink to={`/my_marks`} className={styles.elementText}>
+							Успеваемость
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
 						<NavLink to={`/contacts`} className={styles.elementText}>
 							Контакты
 						</NavLink>
@@ -125,6 +130,11 @@ const Navbar: React.FC = () => {
 					<div className={styles.navElement}>
 						<NavLink to={`/news`} className={styles.elementText}>
 							Новости
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/my_marks`} className={styles.elementText}>
+							Успеваемость
 						</NavLink>
 					</div>
 					<div className={styles.navElement}>

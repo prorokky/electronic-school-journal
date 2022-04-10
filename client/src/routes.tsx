@@ -14,6 +14,7 @@ import Profile from './App/pages/Profile'
 import Roles from './App/pages/Roles'
 import Schedule from './App/pages/Schedule'
 import ShowClassMarks from './App/pages/ShowClassMarks'
+import ShowMyMarks from './App/pages/ShowMyMarks'
 import User from './App/pages/User'
 
 export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
@@ -48,6 +49,9 @@ export const useRoutes = (isAuthenticated: boolean): JSX.Element => {
 				</Route>
 				<Route path="/class_marks" exact>
 					<ShowClassMarks />
+				</Route>
+				<Route path="/my_marks" exact>
+					<ShowMyMarks />
 				</Route>
 				<Route path="/add_schedule" exact>
 					<Schedule />

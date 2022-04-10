@@ -1,23 +1,32 @@
 @import '@styles/variables.scss';
 
 .table {
-  width: 80%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  border-bottom-width: 3px;
+  font-size: 14px;
+  width: 640px;
+  text-align: left;
   border-collapse: collapse;
-  font-size: 15px;
-  color: $text-color;
-  background: rgba(31, 100, 222, 0.46);
+  background: #415B9A;
   margin: 10px;
 }
 
-.table td {
-  padding: 7px;
-  border: none;
-  font-size: 15px;
-  text-align: center;
+.table th {
+  color: #EDB749;
+  border-bottom: 1px solid #37B5A5;
+  padding: 12px 17px;
 }
-
-.table tbody tr:nth-child(even){
-  background: white;
+.table td {
+  color: #CAD4D6;
+  border-bottom: 1px solid #37B5A5;
+  border-right:1px solid #37B5A5;
+  padding: 7px 17px;
+}
+.table tr:last-child td {
+  border-bottom: none;
+}
+.table td:last-child {
+  border-right: none;
+}
+.table tr:hover td {
+  text-decoration: underline;
 }

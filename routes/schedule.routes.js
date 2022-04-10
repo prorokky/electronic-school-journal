@@ -18,7 +18,7 @@ router.post('/add_schedule', [
         let dayLessonsId = []
         let allLessonsId = []
 
-        if (!classCandidate) {
+        if (!chosenClass) {
             const data = {message: 'Введите корректный класс', isWarning: true}
             return response.status(400).json(data)
         }

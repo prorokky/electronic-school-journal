@@ -10,6 +10,7 @@ import { showClassMarks } from '@store/showClassMarks/reducer'
 import { user } from '@store/user/reducer'
 import { userWork } from '@store/userWork/reducer'
 import { combineReducers } from 'redux'
+import {showMyMarks} from "@store/showMyMarks/reducer";
 
 export const rootReducer = combineReducers({
 	authReducer,
@@ -22,6 +23,7 @@ export const rootReducer = combineReducers({
 	marks,
 	schedule,
 	showClassMarks,
+	showMyMarks,
 	contacts,
 })
 

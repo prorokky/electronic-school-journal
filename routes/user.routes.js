@@ -10,6 +10,7 @@ const Role = require('../models/Role')
 const Class = require('../models/Class')
 const Subject = require('../models/Subject')
 const auth = require("../middleware/auth.middleware");
+const Mark = require("../models/Mark");
 const router = Router()
 
 router.post('/add_user',
@@ -267,7 +268,7 @@ router.get('/get_contacts', auth, async (request, response) => {
                     {value: candidate.last_name},
                     {value: candidate.name},
                     {value: candidate.patronymic},
-                    {value: subject.subject},
+                    {value: subject.subject },
                     {value: contacts[i].phone},
                     {value: contacts[i].mail},
                 )
@@ -278,6 +279,80 @@ router.get('/get_contacts', auth, async (request, response) => {
         response.json(data)
     } catch (e) {
         response.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', isWarning: true })
+    }
+})
+
+router.post('/get_student_marks', [
+], async (request, response) => {
+    try {
+        const {
+            class_study,
+            subject,
+            login
+        } = request.body
+
+        const userId = await User.findOne({ login })
+        const userFio = `${userId.last_name} ${userId.name} ${userId.patronymic}`
+
+        const allMarks = await Mark.find()
+        const data = [] // данные для ответа на фронт
+        const students = [] // список всех данных об оценках
+        const marksDates = [] // даты оценок
+
+        for (let i = 0; i < allMarks.length; i++) {
+            const className = await Class.findOne({ _id: allMarks[i].class_study })
+            const subjectName = await Subject.findOne({ _id: allMarks[i].subject })
+            if (className &&
+                (className.class_study === class_study) &&
+                (subjectName.subject === subject)
+            ) {
+                marksDates.push(allMarks[i].mark_date)
+                students.push({
+                    student: allMarks[i].user,
+                    mark: allMarks[i].mark,
+                    markDate: allMarks[i].mark_date,
+                    markType: allMarks[i].mark_type,
+                })
+            }
+        }
+
+        marksDates.sort()
+
+        filteredMarksDates = marksDates.filter((item, pos) => {
+            return marksDates.indexOf(item) === pos
+        })
+
+        const marksDatedRow = []
+
+        for (let i = 0; i < filteredMarksDates.length; i++) {
+            marksDatedRow.push({value: filteredMarksDates[i]})
+        }
+
+        data.push(marksDatedRow)
+
+        const studentData = []
+        for (let i =  0; i < filteredMarksDates.length; i++) {
+            let hasMark = false
+            for (let j = 0; j < students.length; j++) {
+                const fio = await User.findOne({ _id: students[j].student })
+                const studentFio = `${fio.last_name} ${fio.name} ${fio.patronymic}`
+                if (studentFio === userFio) {
+                    if (students[j].markDate === filteredMarksDates[i]) {
+                        studentData.push({ value: students[j].mark })
+                        hasMark = true
+                    }
+                }
+            }
+            if (!hasMark) {
+                studentData.push({value: ''})
+            }
+        }
+
+        data.push(studentData)
+
+        response.json(data)
+    } catch (e) {
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
     }
 })
 
