@@ -1,16 +1,16 @@
 import { addContact } from '@store/addContact/reducer'
+import { addSchedule } from '@store/addSchedule/reducer'
 import { authReducer } from '@store/auth/reducer'
 import { contacts } from '@store/contacts/reducer'
 import { homework } from '@store/homework/reducer'
 import { marks } from '@store/marks/reducer'
 import { news } from '@store/news/reducer'
 import { roles } from '@store/roles/reducer'
-import { schedule } from '@store/schedule/reducer'
 import { showClassMarks } from '@store/showClassMarks/reducer'
+import { showMyMarks } from '@store/showMyMarks/reducer'
 import { user } from '@store/user/reducer'
 import { userWork } from '@store/userWork/reducer'
 import { combineReducers } from 'redux'
-import {showMyMarks} from "@store/showMyMarks/reducer";
 
 export const rootReducer = combineReducers({
 	authReducer,
@@ -21,7 +21,7 @@ export const rootReducer = combineReducers({
 	news,
 	homework,
 	marks,
-	schedule,
+	addSchedule,
 	showClassMarks,
 	showMyMarks,
 	contacts,
