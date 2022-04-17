@@ -87,7 +87,7 @@ export const addSchedule = (lessons: Array<string>, chosenClass: string) => asyn
 	const { request, errors } = sentHttp()
 
 	try {
-		const data = await request('/api/addSchedule/add_schedule', 'POST', { allLessons, chosenClass })
+		const data = await request('/api/schedule/add_schedule', 'POST', { allLessons, chosenClass })
 		dispatch({
 			type: ADD_SCHEDULE_SUCCESS,
 			payload: data,

@@ -1,0 +1,37 @@
+@import '@styles/variables.scss';
+
+.container {
+  width: 80%;
+  height: auto;
+  background: $page-background;
+  border-radius: 5px 5px 0 0;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tablesContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.headerText {
+  font-size: 24px;
+  color: $text-color;
+  line-height: 1.2;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tableName {
+  text-align: center;
+  font-size: 19px;
+  color: $text-color;
+  line-height: 19px;
+  margin-top: 10px;
+  cursor: pointer;
+}

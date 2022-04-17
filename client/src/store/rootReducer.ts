@@ -6,6 +6,7 @@ import { homework } from '@store/homework/reducer'
 import { marks } from '@store/marks/reducer'
 import { news } from '@store/news/reducer'
 import { roles } from '@store/roles/reducer'
+import { schedule } from '@store/schedule/reducer'
 import { showClassMarks } from '@store/showClassMarks/reducer'
 import { showMyMarks } from '@store/showMyMarks/reducer'
 import { user } from '@store/user/reducer'
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers({
 	showClassMarks,
 	showMyMarks,
 	contacts,
+	schedule,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
