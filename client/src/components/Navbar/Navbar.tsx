@@ -107,6 +107,11 @@ const Navbar: React.FC = () => {
 			navbarElements = (
 				<>
 					<div className={styles.navElement}>
+						<NavLink to={`/homework`} className={styles.elementText}>
+							Домашнее задание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
 						<NavLink to={`/news`} className={styles.elementText}>
 							Новости
 						</NavLink>
@@ -132,6 +137,11 @@ const Navbar: React.FC = () => {
 		case 'Родитель':
 			navbarElements = (
 				<>
+					<div className={styles.navElement}>
+						<NavLink to={`/homework`} className={styles.elementText}>
+							Домашнее задание
+						</NavLink>
+					</div>
 					<div className={styles.navElement}>
 						<NavLink to={`/news`} className={styles.elementText}>
 							Новости

@@ -1,4 +1,5 @@
 import { addContact } from '@store/addContact/reducer'
+import { addHomework } from '@store/addHomework/reducer'
 import { addSchedule } from '@store/addSchedule/reducer'
 import { authReducer } from '@store/auth/reducer'
 import { contacts } from '@store/contacts/reducer'
@@ -20,13 +21,14 @@ export const rootReducer = combineReducers({
 	addContact,
 	roles,
 	news,
-	homework,
+	addHomework,
 	marks,
 	addSchedule,
 	showClassMarks,
 	showMyMarks,
 	contacts,
 	schedule,
+	homework,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
