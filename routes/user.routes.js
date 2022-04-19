@@ -356,4 +356,22 @@ router.post('/get_student_marks', [
     }
 })
 
+router.post('/get_homework', [
+], async (request, response) => {
+    try {
+        const {
+            date,
+            class_study,
+            login,
+        } = request.body
+
+        console.log(date)
+        console.log(class_study)
+        console.log(login)
+
+    } catch (e) {
+        response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
+    }
+})
+
 module.exports = router

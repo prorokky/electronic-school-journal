@@ -1,3 +1,1 @@
-export type HomeworkReducerState = {
-
-}
+export type HomeworkReducerState = {	isLoading: boolean	messages: Array<object>	date: Date    homeworkData: Array<any>}

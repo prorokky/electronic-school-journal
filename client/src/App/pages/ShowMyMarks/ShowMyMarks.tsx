@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import Alert from '@components/Alert'
 import Loader from '@components/Loader'
 import Select from '@components/Select'
+import Table from '@components/Table'
 import { AuthContext } from '@context/AuthContext'
 import { RootState } from '@store/rootReducer'
 import { changeChosenSubject, getAllSubject, clearErrors } from '@store/showMyMarks/actions'
@@ -11,7 +12,6 @@ import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './ShowMyMarks.module.scss'
-import Table from "@components/Table";
 
 const ShowMyMarks: React.FC = () => {
 	const dispatch = useDispatch()

@@ -1,0 +1,18 @@
+@import '@styles/variables.scss';
+
+.label {
+  font-size: 15px;
+  color: $text-color;
+  width: 50%;
+}
+
+.datePicker {
+  position: relative;
+  width: 50%;
+  z-index: 2;
+  margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
