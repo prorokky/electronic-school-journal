@@ -11,6 +11,8 @@ const Class = require('../models/Class')
 const Subject = require('../models/Subject')
 const auth = require("../middleware/auth.middleware");
 const Mark = require("../models/Mark");
+const Schedule = require('../models/Schedule');
+const Homework = require('../models/Homework');
 const router = Router()
 
 router.post('/add_user',
@@ -362,13 +364,68 @@ router.post('/get_homework', [
         const {
             date,
             class_study,
-            login,
         } = request.body
 
-        console.log(date)
-        console.log(class_study)
-        console.log(login)
+        const yearFrom = date.slice(0, 4)
+        const monthFrom = date.slice(5, 7)
+        const dayFrom = Number(date.slice(8, 10)) + 1 // Почему-то разница 1 день с датой
 
+        const date_for = `${dayFrom}.${monthFrom}.${yearFrom}`
+
+        const homeworkDate = new Date(date)
+        const allHomework = await Homework.find()
+        let lessonsIds = []
+
+        const classId = await Class.findOne({ class_study: class_study })
+        const schedule = await Schedule.findOne({ class_study: classId._id })
+
+        switch (homeworkDate.getDay()) {
+            case 1:
+                lessonsIds = schedule.mondayLessons
+                break
+            case 2:
+                lessonsIds = schedule.tuesdayLessons
+                break
+            case 3:
+                lessonsIds = schedule.wedndesdayLessons
+                break
+            case 4:
+                lessonsIds = schedule.thursdayLessons
+                break
+            case 5:
+                lessonsIds = schedule.fridayLessons
+                break
+            case 6:
+                lessonsIds = schedule.saturdayLessons
+                break
+        }
+
+        const dayLessons = []
+        const homework = []
+
+        for (let i = 0; i < lessonsIds.length; i++) {
+            const lesson = await Subject.findOne({ _id: lessonsIds[i] })
+            dayLessons.push(lesson.subject)
+            let lessonHomework = ''
+            for (let j = 0; j < allHomework.length; j++) {
+                const homeworkClass = await Class.findOne({ _id: allHomework[j].class_study })
+                if (homeworkClass.class_study === classId.class_study &&
+                    allHomework[j].date_for === date_for) {
+                    const homeworkSubject = await Subject.findOne({ _id: allHomework[j].subject })
+                    if (homeworkSubject.subject === lesson.subject) {
+                        lessonHomework = allHomework[j].homework
+                    }
+                }
+            }
+            homework.push(lessonHomework)
+        }
+
+        const data = {
+            dayLessons,
+            homework
+        }
+
+        response.json(data)
     } catch (e) {
         response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
     }

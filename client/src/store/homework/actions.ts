@@ -19,12 +19,11 @@ export const getHomework = (date: Date) => async (dispatch, getState) => {
 		type: GET_HOMEWORK_STARTED,
 	})
 
-	const { request, erorrs } = sentHttp()
+	const { request, errors } = sentHttp()
 	const { user } = getState()
 	const payload: object = {
 		date,
 		class_study: user.user.class_study,
-		login: user.user.login,
 	}
 
 	try {

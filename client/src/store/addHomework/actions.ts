@@ -74,16 +74,16 @@ export const addHomework = () => async (dispatch, getState) => {
 
 	// @ts-ignore
 	const { request, errors } = sentHttp()
-	const { homework, user } = getState()
+	const { addHomework, user } = getState()
 	const payload = {
-		class_study: homework.class_study,
-		homework: homework.homework,
-		date_for: homework.date_for,
-		date_from: homework.date_from,
+		class_study: addHomework.class_study,
+		homework: addHomework.homework,
+		date_for: addHomework.date_for,
+		date_from: addHomework.date_from,
 		subject: user.user.subject,
 	}
 
-	if (homework.date_from >= homework.date_for) {
+	if (addHomework.date_from >= addHomework.date_for) {
 		dispatch({
 			type: ADD_HOMEWORK_FAILED,
 			payload: [{ message: 'Выберите другую дату', isWarning: true }],
