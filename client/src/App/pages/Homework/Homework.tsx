@@ -9,11 +9,13 @@ import DatePicker from 'react-datepicker'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Homework.module.scss'
+import Table from "@components/Table";
 
 const Homework: React.FC = () => {
 	const dispatch = useDispatch()
 	const isLoading = useSelector((state: RootState) => state.homework.isLoading)
 	const date = useSelector((state: RootState) => state.homework.date)
+	const homeworkData = useSelector((state: RootState) => state.homework.homeworkData)
 
 	return (
 		<>
@@ -33,6 +35,7 @@ const Homework: React.FC = () => {
 							ОК
 						</Button>
 					</div>
+					<Table tableRows={homeworkData} checkNull={false} />
 				</div>
 			)}
 		</>

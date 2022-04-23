@@ -28,10 +28,13 @@ export const getHomework = (date: Date) => async (dispatch, getState) => {
 	}
 
 	try {
-		const data = await request('/api/get_homework', 'POST', { ...payload })
+		const data: { [key: string]: unknown } = await request('/api/get_homework', 'POST', { ...payload })
+
+		const studentMarksTable = dataConverter(data)
+
 		dispatch({
 			type: GET_HOMEWORK_SUCCESS,
-			payload: data,
+			payload: studentMarksTable,
 		})
 	} catch (e) {
 		dispatch({
@@ -39,4 +42,23 @@ export const getHomework = (date: Date) => async (dispatch, getState) => {
 			payload: errors,
 		})
 	}
+}
+
+const dataConverter = (data: { [key: string]: unknown }): Array<Array<{ [key: string]: string }>> => {
+	const studentMarksTable: Array<Array<string>> = [
+		[{ value: '№' }, { value: 'Предмет' }, { value: 'Домашнее задание' }, { value: 'Оценка' }],
+	]
+
+	data.dayLessons.forEach((lesson: string, index: number) => {
+		const tableRow: Array<{ [key: string]: string }> = []
+		tableRow.push(
+			{ value: index + 1 },
+			{ value: lesson },
+			{ value: data.homework[index] },
+			{ value: data.studentMarks[index] }
+		)
+		studentMarksTable.push(tableRow)
+	})
+
+	return studentMarksTable
 }
