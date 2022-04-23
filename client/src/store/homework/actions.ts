@@ -24,6 +24,7 @@ export const getHomework = (date: Date) => async (dispatch, getState) => {
 	const payload: object = {
 		date,
 		class_study: user.user.class_study,
+		login: user.user.login,
 	}
 
 	try {

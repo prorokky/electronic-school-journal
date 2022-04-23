@@ -1,8 +1,5 @@
 const {Router} = require('express')
 const bcrypt = require('bcryptjs')
-const config = require('config')
-const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const Contact = require('../models/Contact')
@@ -13,6 +10,7 @@ const auth = require("../middleware/auth.middleware");
 const Mark = require("../models/Mark");
 const Schedule = require('../models/Schedule');
 const Homework = require('../models/Homework');
+const Marks = require('../models/Mark');
 const router = Router()
 
 router.post('/add_user',
@@ -364,16 +362,17 @@ router.post('/get_homework', [
         const {
             date,
             class_study,
+            login,
         } = request.body
 
         const yearFrom = date.slice(0, 4)
         const monthFrom = date.slice(5, 7)
-        const dayFrom = Number(date.slice(8, 10)) + 1 // Почему-то разница 1 день с датой
-
+        const dayFrom = date.slice(8, 10)
         const date_for = `${dayFrom}.${monthFrom}.${yearFrom}`
 
         const homeworkDate = new Date(date)
         const allHomework = await Homework.find()
+        const allMarks = await Marks.find()
         let lessonsIds = []
 
         const classId = await Class.findOne({ class_study: class_study })
@@ -402,6 +401,7 @@ router.post('/get_homework', [
 
         const dayLessons = []
         const homework = []
+        const studentMarks = []
 
         for (let i = 0; i < lessonsIds.length; i++) {
             const lesson = await Subject.findOne({ _id: lessonsIds[i] })
@@ -420,13 +420,30 @@ router.post('/get_homework', [
             homework.push(lessonHomework)
         }
 
+        for (let i = 0; i < lessonsIds.length; i++) {
+            const lesson = await Subject.findOne({ _id: lessonsIds[i] })
+            let mark = ''
+            for (let j = 0; j < allMarks.length; j++) {
+                const markSubject = await Subject.findOne({ _id: allMarks[j].subject })
+                const userInfo = await User.findOne({ _id: allMarks[j].user })
+                if (markSubject.subject === lesson.subject &&
+                    allMarks[j].mark_date === date_for &&
+                    userInfo.login === login) {
+                    mark = allMarks[j].mark
+                }
+            }
+            studentMarks.push(mark)
+        }
+
         const data = {
             dayLessons,
-            homework
+            homework,
+            studentMarks,
         }
 
         response.json(data)
     } catch (e) {
+        console.log(e)
         response.status(500).json({message: 'Что-то пошло не так, попробуйте снова', isWarning: true})
     }
 })
