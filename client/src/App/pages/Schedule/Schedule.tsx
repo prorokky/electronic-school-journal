@@ -1,141 +1,64 @@
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 import Alert from '@components/Alert'
-import Button from '@components/Button'
-import Input from '@components/Input'
-import Select from '@components/Select'
+import Loader from '@components/Loader'
+import Table from '@components/Table'
+import { clearErrors } from '@store/addContact/actions'
 import { RootState } from '@store/rootReducer'
-import {
-	addSchedule,
-	clearErrors,
-	onChangeClass,
-	onChangeFridayLessons,
-	onChangeMondayLessons,
-	onChangeSaturdayLessons,
-	onChangeThursdayLessons,
-	onChangeTuesdayLessons,
-	onChangeWednesdayLessons,
-} from '@store/schedule/actions'
+import { fetchSchedule } from '@store/schedule/actions'
 import formStyles from '@styles/addForms.module.scss'
-import globalStyles from '@styles/globalStyles.module.scss'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Schedule.module.scss'
 
+const tablesName: Array<string> = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+
 const Schedule: React.FC = () => {
 	const dispatch = useDispatch()
-	const classes = useSelector((state: RootState) => state.user.user.classes)
-	const mondayLessons = useSelector((state: RootState) => state.schedule.mondayLessons)
-	const tuesdayLessons = useSelector((state: RootState) => state.schedule.tuesdayLessons)
-	const wednesdayLessons = useSelector((state: RootState) => state.schedule.wednesdayLessons)
-	const thursdayLessons = useSelector((state: RootState) => state.schedule.thursdayLessons)
-	const fridayLessons = useSelector((state: RootState) => state.schedule.fridayLessons)
-	const saturdayLessons = useSelector((state: RootState) => state.schedule.saturdayLessons)
-	const chosenClass = useSelector((state: RootState) => state.schedule.chosenClass)
 	const isLoading = useSelector((state: RootState) => state.schedule.isLoading)
 	const messages = useSelector((state: RootState) => state.schedule.messages)
+	const schedule = useSelector((state: RootState) => state.schedule.schedule)
 
-	const handleForm = (event) => {
-		event.preventDefault()
-		dispatch(
-			addSchedule(
-				[mondayLessons, tuesdayLessons, wednesdayLessons, thursdayLessons, fridayLessons, saturdayLessons],
-				chosenClass
-			)
-		)
-	}
+	useEffect(() => {
+		dispatch(fetchSchedule())
+	}, [fetchSchedule])
 
 	return (
-		<div className={globalStyles.container}>
-			<div className={formStyles.alertsContainer}>
-				{messages?.map((message, index) => {
-					return (
-						// @ts-ignore
-						<Alert
-							cleanError={() => dispatch(clearErrors())}
-							text={message.message}
-							key={index}
-							isWarning={message.isWarning}
-						/>
-					)
-				})}
-			</div>
-			<form className={styles.scheduleForm} onSubmit={(event) => handleForm(event)}>
-				<div className={formStyles.validateSelect}>
-					<label className={styles.label}>Класс обучения: </label>
-					<Select
-						optionsArray={classes}
-						value={chosenClass}
-						onChange={(event) => dispatch(onChangeClass(event))}
-					/>
-				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Понедельник</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={mondayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeMondayLessons(event))}
-						/>
+		<>
+			{isLoading ? (
+				<Loader />
+			) : (
+				<div className={styles.container}>
+					<div className={formStyles.alertsContainer}>
+						{messages.map((message, index) => {
+							return (
+								// @ts-ignore
+								<Alert
+									cleanError={() => dispatch(clearErrors())}
+									text={message.message}
+									key={index}
+									isWarning={message.isWarning}
+								/>
+							)
+						})}
+					</div>
+					<div className={styles.tablesContainer}>
+						<h2 className={styles.headerText}>Расписание</h2>
+						{schedule.map((dayLessons, index) => {
+							console.log(dayLessons)
+							return (
+								dayLessons[0]?.value !== '' && (
+									<Fragment key={index}>
+										<h3 className={styles.tableName}>{tablesName[index]}</h3>
+										<Table tableRows={dayLessons} checkNull={false} />
+									</Fragment>
+								)
+							)
+						})}
 					</div>
 				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Вторник</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={tuesdayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeTuesdayLessons(event))}
-						/>
-					</div>
-				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Среда</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={wednesdayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeWednesdayLessons(event))}
-						/>
-					</div>
-				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Четверг</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={thursdayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeThursdayLessons(event))}
-						/>
-					</div>
-				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Пятница</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={fridayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeFridayLessons(event))}
-						/>
-					</div>
-				</div>
-				<div className={styles.inputLessons}>
-					<h2 className={styles.lessonsHeader}>Суббота</h2>
-					<div className={styles.validateInput}>
-						<Input
-							value={saturdayLessons}
-							placeholder={'Введите предметы через запятую'}
-							onChange={(event) => dispatch(onChangeSaturdayLessons(event))}
-						/>
-					</div>
-				</div>
-				<div className={formStyles.button}>
-					<Button isDisabled={isLoading} color={'green'}>
-						добавить
-					</Button>
-				</div>
-			</form>
-		</div>
+			)}
+		</>
 	)
 }
 

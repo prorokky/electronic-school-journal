@@ -6,7 +6,6 @@ import { useAuth } from '@hooks/auth.hook'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import { useRoutes } from '../routes'
-import styles from './App.module.scss'
 
 function App() {
 	const { token, login, logout, userId } = useAuth()
@@ -25,7 +24,7 @@ function App() {
 		>
 			<Router>
 				{isAuthenticated && <Navbar />}
-				<div className={styles.container}>{routes}</div>
+				<div>{routes}</div>
 			</Router>
 		</AuthContext.Provider>
 	)

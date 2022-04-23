@@ -1,9 +1,1 @@
-export type HomeworkReducerState = {
-	class_study: string
-	homework: string
-	date_for: Date
-	date_from: Date
-	messages: object[]
-	isLoading: boolean
-	classes: []
-}
+export type HomeworkReducerState = {	isLoading: boolean	messages: Array<object>	date: Date    homeworkData: Array<any>}

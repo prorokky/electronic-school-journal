@@ -1,25 +1,25 @@
 import React, { useContext, useEffect } from 'react'
 
 import Alert from '@components/Alert'
-import AllMarks from '@components/AllMarks'
 import Loader from '@components/Loader'
 import Select from '@components/Select'
+import Table from '@components/Table'
 import { AuthContext } from '@context/AuthContext'
 import { RootState } from '@store/rootReducer'
-import { changeChosenSubject, getAllSubject, clearErrors } from '@store/showClassMarks/actions'
+import { changeChosenSubject, getAllSubject, clearErrors } from '@store/showMyMarks/actions'
 import formStyles from '@styles/addForms.module.scss'
 import globalStyles from '@styles/globalStyles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
-import styles from './ShowClassMarks.module.scss'
+import styles from './ShowMyMarks.module.scss'
 
-const ShowClassMarks: React.FC = () => {
+const ShowMyMarks: React.FC = () => {
 	const dispatch = useDispatch()
-	const isLoading = useSelector((state: RootState) => state.showClassMarks.isLoading)
-	const messages = useSelector((state: RootState) => state.showClassMarks.messages)
-	const allSubjects = useSelector((state: RootState) => state.showClassMarks.allSubject)
-	const chosenSubject = useSelector((state: RootState) => state.showClassMarks.chosenSubject)
-	const classStudy = useSelector((state: RootState) => state.user.user.class_study)
+	const isLoading = useSelector((state: RootState) => state.showMyMarks.isLoading)
+	const messages = useSelector((state: RootState) => state.showMyMarks.messages)
+	const allSubjects = useSelector((state: RootState) => state.showMyMarks.allSubject)
+	const chosenSubject = useSelector((state: RootState) => state.showMyMarks.chosenSubject)
+	const allMarks = useSelector((state: RootState) => state.showMyMarks.allMarks)
 
 	const auth = useContext(AuthContext)
 
@@ -48,7 +48,7 @@ const ShowClassMarks: React.FC = () => {
 							)
 						})}
 					</div>
-					<h2 className={styles.header}>Оценки всего класса</h2>
+					<h2 className={styles.header}>Успеваемость</h2>
 					<div className={styles.validateSelect}>
 						<label className={styles.selectLabel}>Предмет: </label>
 						<Select
@@ -57,11 +57,13 @@ const ShowClassMarks: React.FC = () => {
 							onChange={(event) => dispatch(changeChosenSubject(event))}
 						/>
 					</div>
-					{chosenSubject !== '' && <AllMarks classStudy={classStudy} subject={chosenSubject} />}
+					<div>
+						<Table tableRows={allMarks} checkNull={false} />
+					</div>
 				</div>
 			)}
 		</>
 	)
 }
 
-export default ShowClassMarks
+export default ShowMyMarks

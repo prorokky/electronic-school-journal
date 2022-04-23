@@ -14,7 +14,7 @@ import {
 	changeHomework,
 	fetchClasses,
 	clearErrors,
-} from '@store/homework/actions'
+} from '@store/addHomework/actions'
 import { RootState } from '@store/rootReducer'
 import formStyles from '@styles/addForms.module.scss'
 import DatePicker from 'react-datepicker'
@@ -26,13 +26,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 export const AddHomework: React.FC = () => {
 	const dispatch = useDispatch()
-	const homework = useSelector((state: RootState) => state.homework.homework)
-	const dateFor = useSelector((state: RootState) => state.homework.date_for)
-	const dateFrom = useSelector((state: RootState) => state.homework.date_from)
-	const isLoading = useSelector((state: RootState) => state.homework.isLoading)
-	const classes = useSelector((state: RootState) => state.homework.classes)
-	const classStudy = useSelector((state: RootState) => state.homework.class_study)
-	const messages = useSelector((state: RootState) => state.homework.messages)
+	const homework = useSelector((state: RootState) => state.addHomework.homework)
+	const dateFor = useSelector((state: RootState) => state.addHomework.date_for)
+	const dateFrom = useSelector((state: RootState) => state.addHomework.date_from)
+	const isLoading = useSelector((state: RootState) => state.addHomework.isLoading)
+	const classes = useSelector((state: RootState) => state.addHomework.classes)
+	const classStudy = useSelector((state: RootState) => state.addHomework.class_study)
+	const messages = useSelector((state: RootState) => state.addHomework.messages)
 
 	const auth = useContext(AuthContext)
 

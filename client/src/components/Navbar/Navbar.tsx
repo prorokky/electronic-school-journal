@@ -103,6 +103,68 @@ const Navbar: React.FC = () => {
 				</>
 			)
 			break
+		case 'Ученик':
+			navbarElements = (
+				<>
+					<div className={styles.navElement}>
+						<NavLink to={`/homework`} className={styles.elementText}>
+							Домашнее задание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/news`} className={styles.elementText}>
+							Новости
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/schedule`} className={styles.elementText}>
+							Расписание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/my_marks`} className={styles.elementText}>
+							Успеваемость
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/contacts`} className={styles.elementText}>
+							Контакты
+						</NavLink>
+					</div>
+				</>
+			)
+			break
+		case 'Родитель':
+			navbarElements = (
+				<>
+					<div className={styles.navElement}>
+						<NavLink to={`/homework`} className={styles.elementText}>
+							Домашнее задание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/news`} className={styles.elementText}>
+							Новости
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/schedule`} className={styles.elementText}>
+							Расписание
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/my_marks`} className={styles.elementText}>
+							Успеваемость
+						</NavLink>
+					</div>
+					<div className={styles.navElement}>
+						<NavLink to={`/contacts`} className={styles.elementText}>
+							Контакты
+						</NavLink>
+					</div>
+				</>
+			)
+			break
 	}
 
 	return (
