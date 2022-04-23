@@ -50,7 +50,7 @@ export const changeChosenSubject = (subject: string) => async (dispatch, getStat
 	}
 
 	try {
-		const data = await request('/api/get_student_marks', 'POST', { ...payload })
+		const data = await request('/api/student/get_student_marks', 'POST', { ...payload })
 		dispatch({
 			type: GET_MARKS_SUCCESS,
 			payload: data,
