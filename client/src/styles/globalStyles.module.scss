@@ -1,15 +1,15 @@
 @import '@styles/variables.scss';
 
-// TODO: сделать блок по всей высоте и ситуационным скролом
-
 .container {
   width: 80%;
   background: $page-background;
   border-radius: 5px 5px 0 0;
-  height: 95vh;
+  height: auto;
+  min-height: 95vh;
   margin-left: 10%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  overflow-x: auto;
 }

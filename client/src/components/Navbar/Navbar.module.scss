@@ -10,6 +10,8 @@
   margin: 0 auto;
   background: $navbar-background;
   border-radius: 0 0 5px 5px;
+  position: sticky;
+  top: 0;
 }
 
 .navElement {

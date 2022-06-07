@@ -3,7 +3,8 @@
 .container {
   position: relative;
   width: 80%;
-  height: 95vh;
+  height: auto;
+  min-height: 95vh;
   margin-left: 10%;
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +12,7 @@
   align-items: center;
   z-index: 5;
   background: $page-background;
+  overflow-x: auto;
 }
 
 .alertsContainer {
