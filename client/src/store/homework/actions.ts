@@ -28,7 +28,7 @@ export const getHomework = (date: Date) => async (dispatch, getState) => {
 	}
 
 	try {
-		const data: { [key: string]: unknown } = await request('/api/get_homework', 'POST', { ...payload })
+		const data: { [key: string]: unknown } = await request('/api/student/get_homework', 'POST', { ...payload })
 
 		const studentMarksTable = dataConverter(data)
 

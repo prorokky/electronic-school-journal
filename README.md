@@ -80,4 +80,5 @@
 | sidorov-ss | sidorov-ss1234 | Ученик |
 | sazonova-ls | sazonova-ls1234 | Классный руководитель |
 | ivanova-lm | ivanova-lm1234 | Учитель |
+| ivanov-pp | ivanov-pp1234 | Родитель |
 
